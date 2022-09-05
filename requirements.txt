@@ -1,0 +1,6 @@
+myhdl
+pytest
+pyyaml
+tabulate
+click
+git+https://github.com/insper-classroom/telementry-client-py
