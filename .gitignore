@@ -7,3 +7,6 @@ htmlcov
 *.v
 .direnv/
 *.ini
+/direnv
+./direnv
+
