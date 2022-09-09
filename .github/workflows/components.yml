@@ -31,3 +31,7 @@ jobs:
       - name: test and16
         run: |
           pytest hw/test_components.py -k and16
+
+      - name: test barrelShifter
+        run: |
+          pytest hw/test_components.py -k barrelShifter
