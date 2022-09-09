@@ -68,11 +68,14 @@ def barrelShifter(a, dir, size, q):
     exemplo: a = 0000 1111 0101 1010, dir = 0, size = 3
              q = 0111 1010 1101 0000
     """
-    foo = Signal(intbv(0))
+
 
     @always_comb
     def comb():
-        q.next = foo
+        if dir == 0:
+            q.next = a >> size
+        else:
+            q.next = a << size
 
     return comb
 
@@ -87,11 +90,11 @@ def mux2way(q, a, b, sel):
 
     Mux entre a e b, sel é o seletor
     """
-    foo = Signal(intbv(0))
 
     @always_comb
     def comb():
-        q.next = foo
+        list=[a, b]
+        q.next = list[sel]
 
     return comb
 
@@ -108,11 +111,11 @@ def mux4way(q, a, b, c, d, sel):
 
     Mux entre a, b, c, d sel é o seletor
     """
-    foo = Signal(intbv(0))
 
     @always_comb
     def comb():
-        q.next = foo
+        list=[a, b, c, d]
+        q.next = list[sel]
 
     return comb
 
@@ -123,11 +126,11 @@ def mux8way(q, a, b, c, d, e, f, g, h, sel):
     Mux de 8 entradas, simular aos anteriores.
     """
 
-    foo = Signal(intbv(0))
 
     @always_comb
     def comb():
-        q.next = foo
+        list=[a, b, c, d, e, f, g, h]
+        q.next = list[sel]
 
     return comb
 
