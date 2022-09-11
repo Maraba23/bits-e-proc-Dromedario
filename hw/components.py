@@ -211,9 +211,42 @@ def bin2hex(hex0, sw):
 
     @always_comb
     def comb():
-        hex0.next[4:] = sw[4:]
+        if sw[4:0] == 0:
+            hex0.next = "1111110"
+        elif sw[4:0] == 1:
+            hex0.next = "0110000"
+        elif sw[4:0] == 2:
+            hex0.next = "1101101"
+        elif sw[4:0] == 3:
+            hex0.next = "1111001"
+        elif sw[4:0] == 4:
+            hex0.next = "0110011"
+        elif sw[4:0] == 5:
+            hex0.next = "1011011"
+        elif sw[4:0] == 6:
+            hex0.next = "1011111"
+        elif sw[4:0] == 7:
+            hex0.next = "1110001"
+        elif sw[4:0] == 8:
+            hex0.next = "1111111"
+        elif sw[4:0] == 9:
+            hex0.next = "1110011"
+        elif sw[4:0] == 10:
+            hex0.next = "1110111"
+        elif sw[4:0] == 11:
+            hex0.next = "0011111"
+        elif sw[4:0] == 12:
+            hex0.next = "1001110"
+        elif sw[4:0] == 13:
+            hex0.next = "0111101"
+        elif sw[4:0] == 14:
+            hex0.next = "1001111"
+        elif sw[4:0] == 15:
+            hex0.next = "1000111"
+        else:
+            hex0.next = "0000000"
 
-    return comb
+    return instances()
 
 
 @block
@@ -232,8 +265,13 @@ def bin2bcd(b, bcd1, bcd0):
 
     @always_comb
     def comb():
-        bcd1.next = foo
-        bcd0.next = foo
+        b = str(int(bin(b), 2))
+
+        b1 = b[0]
+        b0 = b[1]
+
+        bcd1.next = int(b1)
+        bcd0.next = int(b0)
 
     return comb
 
