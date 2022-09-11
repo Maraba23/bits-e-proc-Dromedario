@@ -262,6 +262,9 @@ def bin2hex(hex0, sw):
     return instances()
 
 
+#OBS: VETORES NAO FORAM CRIADOS NA MAO! O arquivo vector.py foi utilizado para tal tarefa.
+DIG0 = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+DIG1 = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9)
 @block
 def bin2bcd(b, bcd1, bcd0):
     """
@@ -278,15 +281,8 @@ def bin2bcd(b, bcd1, bcd0):
     @always_comb
     def comb():
 
-        for i in range(7):
-            b = b << 1
-            if int(b[12:8]) > 4:
-                b += (2**8)*3
-        
-        b = b << 1
-
-        bcd0.next = b[12:8]
-        bcd1.next = b[16:12]
+        bcd0.next = DIG0[int(b)]
+        bcd1.next = DIG1[int(b)]
 
         #bcd0.next = int(str(int(bin(b), 2))[1])
         #bcd1.next = int(str(int(bin(b), 2))[0])
