@@ -227,7 +227,7 @@ def bin2bcd(b, bcd1, bcd0):
     BCD1 = 8
     BCD0 = 2
     """
-
+    
     foo = Signal(intbv(0)[4:])
 
     @always_comb
