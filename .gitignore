@@ -13,3 +13,8 @@ htmlcov
 /venv/
 venv/
 ./venv/
+/hw/__pycache__/
+./hw/__pycache__/
+hw/__pycache__/
+./hw/__pycache__
+/hw/__pycache__
