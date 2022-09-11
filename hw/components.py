@@ -224,11 +224,47 @@ def bin2hex(hex0, sw):
 
     @always_comb
     def comb():
-        hex0.next[4:] = sw[4:]
+        if sw[4:0] == 0:
+            hex0.next = "1111110"
+        elif sw[4:0] == 1:
+            hex0.next = "0110000"
+        elif sw[4:0] == 2:
+            hex0.next = "1101101"
+        elif sw[4:0] == 3:
+            hex0.next = "1111001"
+        elif sw[4:0] == 4:
+            hex0.next = "0110011"
+        elif sw[4:0] == 5:
+            hex0.next = "1011011"
+        elif sw[4:0] == 6:
+            hex0.next = "1011111"
+        elif sw[4:0] == 7:
+            hex0.next = "1110001"
+        elif sw[4:0] == 8:
+            hex0.next = "1111111"
+        elif sw[4:0] == 9:
+            hex0.next = "1110011"
+        elif sw[4:0] == 10:
+            hex0.next = "1110111"
+        elif sw[4:0] == 11:
+            hex0.next = "0011111"
+        elif sw[4:0] == 12:
+            hex0.next = "1001110"
+        elif sw[4:0] == 13:
+            hex0.next = "0111101"
+        elif sw[4:0] == 14:
+            hex0.next = "1001111"
+        elif sw[4:0] == 15:
+            hex0.next = "1000111"
+        else:
+            hex0.next = "0000000"
 
-    return comb
+    return instances()
 
 
+#OBS: VETORES NAO FORAM CRIADOS NA MAO! O arquivo vector.py foi utilizado para tal tarefa.
+DIG0 = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+DIG1 = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9)
 @block
 def bin2bcd(b, bcd1, bcd0):
     """
@@ -241,12 +277,15 @@ def bin2bcd(b, bcd1, bcd0):
     BCD0 = 2
     """
     
-    foo = Signal(intbv(0)[4:])
 
     @always_comb
     def comb():
-        bcd1.next = foo
-        bcd0.next = foo
+
+        bcd0.next = DIG0[int(b)]
+        bcd1.next = DIG1[int(b)]
+
+        #bcd0.next = int(str(int(bin(b), 2))[1])
+        #bcd1.next = int(str(int(bin(b), 2))[0])
 
     return comb
 
