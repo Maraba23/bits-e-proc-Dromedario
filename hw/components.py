@@ -274,17 +274,22 @@ def bin2bcd(b, bcd1, bcd0):
     BCD0 = 2
     """
     
-    foo = Signal(intbv(0)[4:])
 
     @always_comb
     def comb():
-        b = str(int(bin(b), 2))
 
-        b1 = b[0]
-        b0 = b[1]
+        for i in range(7):
+            b = b << 1
+            if int(b[12:8]) > 4:
+                b += (2**8)*3
+        
+        b = b << 1
 
-        bcd1.next = int(b1)
-        bcd0.next = int(b0)
+        bcd0.next = b[12:8]
+        bcd1.next = b[16:12]
+
+        #bcd0.next = int(str(int(bin(b), 2))[1])
+        #bcd1.next = int(str(int(bin(b), 2))[0])
 
     return comb
 
