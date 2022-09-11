@@ -48,7 +48,24 @@ jobs:
         run: |
           pytest hw/test_components.py -k barrelShifter
       
+      - name: test or8way
+        run: |
+          pytest hw/test_components.py -k or8way
+        
+      - name: test deMux4way
+        run: |
+          pytest hw/test_components.py -k deMux4way
+      
+      - name: test orNway
+        run: |
+          pytest hw/test_components.py -k orNway
+      
+      - name: test deMux2way
+        run: |
+          pytest hw/test_components.py -k deMux2way
+          
       - name: test deMux8way
         run: |
           pytest hw/test_components.py -k test_deMux8way
+
 
