@@ -49,12 +49,7 @@ def orNway(a, q):
 
     @always_comb
     def comb():
-
-        aux = Signal(intbv(0))
-        for i in range(len(a)):
-            aux.next = aux.val or a[i]
-        
-        q.next = aux.val
+        pass
 
     return comb
 
