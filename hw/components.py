@@ -32,7 +32,7 @@ def or8way(a, b, c, d, e, f, g, h, q):
 
     @always_comb
     def comb():
-        q.next = a or b or c or d or e or f or g or h
+        q.next = (((((((a or b) or c) or d) or e) or f) or g) or h)
 
     return comb
 
@@ -50,7 +50,7 @@ def orNway(a, q):
     @always_comb
     def comb():
         q.next = a[0] or a[1] or a[2] or a[3] or a[4] or a[5] or a[6] or a[7] or a[8] or a[9] or a[10] or a[11] or a[12] or a[13] or a[14] or a[15]
-
+        
     return comb
 
 
@@ -153,7 +153,14 @@ def deMux2way(a, q0, q1, sel):
 
     @always_comb
     def comb():
-        q0.next = foo
+
+        saida = [q0, q1]
+
+        for i in range(2):
+            if i == sel:
+                saida[i].next = a
+            else:
+                saida[i].next = 0
 
     return comb
 
@@ -170,7 +177,13 @@ def deMux4way(a, q0, q1, q2, q3, sel):
 
     @always_comb
     def comb():
-        q0.next = foo
+        saidas = [q0, q1, q2, q3]
+
+        for i in range(4):
+            if i == sel:
+                saidas[i].next = a
+            else:
+                saidas[i].next = 0
 
     return comb
 
