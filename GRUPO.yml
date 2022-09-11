@@ -1,6 +1,26 @@
 Nome-Grupo: "Dromedario"
 
 - user: 1
+  name: João Lucas de Moraes Barros Cadorniga
+  git-username: JoaoLucasMBC
+  blackboard-username: joaolmbc
+
+- user: 2
   name: Marcelo Rabello Barranco
   git-username: maraba23
   blackboard-username: marcelorb5
+ 
+- user: 3
+  name: Thomas Chiari Ciocchetti de Souza
+  git-username: thomaschiari
+  blackboard-username: thomasccs 
+
+- user: 4
+  name: Gustavo Lindenberg Pacheco
+  git-username: gustavolp1
+  blackboard-username: gustavolp1
+  
+- user: 5
+  name: Pedro Antônio Silva
+  git-username: P-ASilva
+  blackboard-username: pedroas5

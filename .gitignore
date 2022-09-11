@@ -1,0 +1,15 @@
+*.py[cod]
+*.egg
+build
+htmlcov
+*.vcd
+*.vhd
+*.v
+.direnv/
+*.ini
+.direnv/
+./direnv
+/direnv
+/venv/
+venv/
+./venv/
