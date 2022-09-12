@@ -212,6 +212,7 @@ def test_bin2bcd():
 
     @instance
     def stimulus():
+
         b.next = randrange(10, 99)
         yield delay(1)
 
