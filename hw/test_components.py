@@ -217,8 +217,12 @@ def test_bin2bcd():
 
         b_str = str(int(bin(b), 2))
 
-        assert bc0.val == int(b_str[1])
-        assert bc1.val == int(b_str[0])
+        if len(b_str) > 1:
+            assert bc0.val == int(b_str[1])
+            assert bc1.val == int(b_str[0])
+        else:
+            assert bc1.val == 0
+            assert bc0.val == int(b_str)
 
     sim = Simulation(ic1, stimulus)
     sim.run()

@@ -225,39 +225,27 @@ def bin2hex(hex0, sw):
     @always_comb
     def comb():
         if sw[4:0] == 0:
-            hex0.next = "1111110"
+            hex0.next = "1000000"
         elif sw[4:0] == 1:
-            hex0.next = "0110000"
-        elif sw[4:0] == 2:
-            hex0.next = "1101101"
-        elif sw[4:0] == 3:
             hex0.next = "1111001"
+        elif sw[4:0] == 2:
+            hex0.next = "0100100"
+        elif sw[4:0] == 3:
+            hex0.next = "0110000"
         elif sw[4:0] == 4:
-            hex0.next = "0110011"
+            hex0.next = "0011001"
         elif sw[4:0] == 5:
-            hex0.next = "1011011"
+            hex0.next = "0010010"
         elif sw[4:0] == 6:
-            hex0.next = "1011111"
+            hex0.next = "0000010"
         elif sw[4:0] == 7:
-            hex0.next = "1110001"
+            hex0.next = "1111000"
         elif sw[4:0] == 8:
-            hex0.next = "1111111"
-        elif sw[4:0] == 9:
-            hex0.next = "1110011"
-        elif sw[4:0] == 10:
-            hex0.next = "1110111"
-        elif sw[4:0] == 11:
-            hex0.next = "0011111"
-        elif sw[4:0] == 12:
-            hex0.next = "1001110"
-        elif sw[4:0] == 13:
-            hex0.next = "0111101"
-        elif sw[4:0] == 14:
-            hex0.next = "1001111"
-        elif sw[4:0] == 15:
-            hex0.next = "1000111"
-        else:
             hex0.next = "0000000"
+        elif sw[4:0] == 9:
+            hex0.next = "0010000"
+        else:
+            hex0.next = "1111111"
 
     return instances()
 
