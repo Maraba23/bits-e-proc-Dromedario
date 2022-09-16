@@ -7,7 +7,6 @@ random.seed(5)
 randrange = random.randrange
 
 
-@block
 def test_ula():
     x = Signal(intbv(1)[16:])
     y = Signal(intbv(2)[16:])
@@ -21,67 +20,55 @@ def test_ula():
     def stimulus():
         control.next = 0b000010
         yield delay(10)
-        if saida != x + y:
-            print("erro 1")
+        assert saida == x + y
 
         control.next = 0b000000
         yield delay(10)
-        if saida != (x & y):
-            print("erro 2")
+        assert saida == (x & y)
 
         control.next = 0b100010
         yield delay(10)
-        if saida != y:
-            print("erro 3")
+        assert saida == y
 
         control.next = 0b001010
         yield delay(10)
-        if saida != x:
-            print("erro 4")
+        assert saida == x
 
         control.next = 0b100110
         yield delay(10)
-        if saida != ~y:
-            print("erro 5")
+        assert saida == ~y
 
         control.next = 0b011010
         yield delay(10)
-        if saida != ~x:
-            print("erro 6")
+        assert saida == ~x
 
         control.next = 0b101010
         yield delay(10)
-        if saida != 0:
-            print("erro 7")
+        assert saida == 0
 
         control.next = 0b101000
         yield delay(10)
-        if saida != 0:
-            print("erro 8")
+        assert saida == 0
 
         control.next = 0b101001
         yield delay(10)
-        if saida != intbv(-1)[16:]:
-            print("erro 9")
+        assert saida == intbv(-1)[16:]
 
         # ------ zr ng --------#
-        if zr != 0 and ng != 1:
-            print("erro 10")
+        assert zr == 0 and ng == 1
 
         control.next = 0b101000
         yield delay(10)
-        if zr != 1 and ng != 0:
-            print("erro 11")
+        assert zr == 1 and ng == 0
 
         control.next = 0b000010
         yield delay(10)
-        if zr != 0 and ng != 0:
-            print("erro 12")
+        assert zr == 0 and ng == 0
 
-    return ula_1, stimulus
+    sim = Simulation(ula_1, stimulus)
+    sim.run()
 
 
-@block
 def test_zerador():
     z = Signal(bool(0))
     a = Signal(intbv(0))
@@ -93,19 +80,15 @@ def test_zerador():
         a.next = randrange(2**16 - 1)
         z.next = 0
         yield delay(10)
-        if y != a:
-            print("erro 1")
-            print("%s %s %s" % (bin(z, 1), bin(a, 16), bin(y, 16)))
+        assert y == a
         z.next = 1
         yield delay(10)
-        if y != 0:
-            print("erro 2")
-            print("%s %s %s" % (bin(z, 1), bin(a, 16), bin(y, 16)))
+        assert y == 0
 
-    return zerador_1, stimulus
+    sim = Simulation(zerador_1, stimulus)
+    sim.run()
 
 
-@block
 def test_comparador():
     a = Signal(intbv(0))
     ng = Signal(bool(0))
@@ -116,24 +99,18 @@ def test_comparador():
     def stimulus():
         a.next = 0
         yield delay(10)
-        if ng != 0 or zr != 1:
-            print("erro 1")
-            print("%s %s %s" % (bin(a, 16), bin(zr, 1), bin(ng, 1)))
+        assert ng == 0 or zr == 1
         a.next = 0xFFFF
         yield delay(10)
-        if ng != 1 or zr != 0:
-            print("erro 2")
-            print("%s %s %s" % (bin(a, 16), bin(zr, 1), bin(ng, 1)))
+        assert ng == 1 or zr == 0
         a.next = 32
         yield delay(10)
-        if ng != 0 or zr != 0:
-            print("erro 3")
-            print("%s %s %s" % (bin(a, 16), bin(zr, 1), bin(ng, 1)))
+        assert ng == 0 or zr == 0
 
-    return comparador_1, stimulus
+    sim = Simulation(comparador_1, stimulus)
+    sim.run()
 
 
-@block
 def test_inversor():
     z = Signal(bool(0))
     a = Signal(intbv(0))
@@ -146,22 +123,16 @@ def test_inversor():
         for i in range(256):
             a.next = randrange(2**16 - 1)
             z.next = randrange(2)
-            yield delay(10)
+            yield delay(1)
             if z == 0:
-                if a != y:
-                    print("erro")
-                    print("%s %s %s" % (bin(z, 1), bin(a, 16), bin(y, 16)))
-                    break
+                assert a == y
             else:
-                if a != ~y:
-                    print("erro")
-                    print("%s %s %s" % (bin(z, 1), bin(a, 16), bin(y, 16)))
-                    break
+                assert a == ~y
 
-    return inversor_1, stimulus
+    sim = Simulation(inversor_1, stimulus)
+    sim.run()
 
 
-@block
 def test_inc():
     a = Signal(intbv(0))
     q = Signal(intbv(0))
@@ -173,16 +144,12 @@ def test_inc():
         for i in range(256):
             a.next = randrange(2**16 - 2)
             yield delay(1)
-            if q != a + 1:
-                print("erro")
-                print("%s %s" % (a, q))
-                print("%s %s" % (bin(a, 16), bin(q, 16)))
-                break
+            assert q == a + 1
 
-    return inc16_1, stimulus
+    sim = Simulation(inc16_1, stimulus)
+    sim.run()
 
 
-@block
 def test_add():
     a = Signal(intbv(0))
     b = Signal(intbv(0))
@@ -195,11 +162,7 @@ def test_add():
         for i in range(256):
             a.next, b.next = [randrange(2**15 - 1) for i in range(2)]
             yield delay(1)
-            if q != a + b:
-                print("erro")
-                print("%s %s %s" % (a, b, q))
-                print("%s %s %s" % (bin(a, 16), bin(b, 16), bin(q, 16)))
-                print("%s" % (bin(a + b, 16)))
-                break
+            assert q == a + b
 
-    return add16_1, stimulus
+    sim = Simulation(add16_1, stimulus)
+    sim.run()
