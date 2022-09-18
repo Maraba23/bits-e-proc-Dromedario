@@ -73,7 +73,11 @@ def zerador(z, a, y):
 def add(a, b, q):
     @always_comb
     def comb():
-        pass
+        soma = a + b
+        if soma > 65535:
+            q.next = 0
+        else:
+            q.next = soma
 
     return instances()
 

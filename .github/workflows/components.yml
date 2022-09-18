@@ -28,6 +28,7 @@ jobs:
           pip install -r requirements.txt
 
       # ------------- Tests ----------------
+      
       - name: test and16
         run: |
           pytest hw/test_components.py -k and16
@@ -83,3 +84,7 @@ jobs:
       - name: test zerador
         run: |
           pytest hw/test_ula.py -k test_zerador
+      
+      - name: test add
+        run: |
+          pytest hw/test_ula.py -k test_add
