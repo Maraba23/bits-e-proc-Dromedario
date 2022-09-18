@@ -93,6 +93,10 @@ jobs:
         run: |
           pytest hw/test_ula.py -k test_add
       
+      - name: test inc
+        run: |
+          pytest hw/test_ula.py -k test_inc
+      
       - name: teste ula
         run: |
           pytest hw/test_ula.py -k test_ula
