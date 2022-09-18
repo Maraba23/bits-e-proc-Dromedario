@@ -173,18 +173,40 @@ def fullAdder(a, b, c, soma, carry):
 
 @block
 def addcla4(a, b, q):
+    # 4-bit adder with carry lookahead
+    s = [Signal(bool(0)) for i in range(4)]
+    faList = [None for i in range(3)]
+
+    faList[0] = fullAdder(a[0], b[0], 0, s[0], faList[1].carry)  # 2
+    faList[1] = fullAdder(a[1], b[1], faList[0].carry, s[1], faList[2].carry)  # 3
+    faList[2] = fullAdder(a[2], b[2], faList[1].carry, s[2], q[3])  # 4
+
     @always_comb
     def comb():
-        pass
+        q[0].next = s[0]
+        q[1].next = s[1]
+        q[2].next = s[2]
 
     return instances()
 
 
 @block
 def addcla16(a, b, q):
+    # 16-bit adder with carry lookahead
+    s = [Signal(intbv(0)[16:]) for i in range(4)]
+    claList = [None for i in range(4)]
+
+    claList[0] = addcla4(a[0:4], b[0:4], s[0])  # 2
+    claList[1] = addcla4(a[4:8], b[4:8], s[1])  # 3
+    claList[2] = addcla4(a[8:12], b[8:12], s[2])  # 4
+    claList[3] = addcla4(a[12:16], b[12:16], s[3])  # 5
+
     @always_comb
     def comb():
-        pass
+        q[0:4].next = s[0]
+        q[4:8].next = s[1]
+        q[8:12].next = s[2]
+        q[12:16].next = s[3]
 
     return instances()
 
