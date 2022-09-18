@@ -80,6 +80,10 @@ jobs:
       - name: test comparador
         run: |
           pytest hw/test_ula.py -k test_comparador
+      
+      - name: test inversor
+        run: |
+          pytest hw/test_ula.py -k test_inversor
 
       - name: test zerador
         run: |
@@ -88,3 +92,7 @@ jobs:
       - name: test add
         run: |
           pytest hw/test_ula.py -k test_add
+      
+      - name: teste ula
+        run: |
+          pytest hw/test_ula.py -k test_ula
