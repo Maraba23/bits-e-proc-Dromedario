@@ -120,7 +120,7 @@ def add(a, b, q):
     @always_comb
     def comb():
         soma = a + b
-        if soma > 65535:
+        if soma > 65535: #255:
             q.next = 0
         else:
             q.next = soma
@@ -130,9 +130,7 @@ def add(a, b, q):
 
 @block
 def inc(a, q):
-    @always_comb
-    def comb():
-        pass
+    a = add(a, Signal(intbv(1)), q)
 
     return instances()
 
