@@ -3,6 +3,34 @@
 from myhdl import *
 
 
+#estava com problema de importaçao, entao coloquei aqui
+@block
+def mux2way(q, a, b, sel):
+
+    @always_comb
+    def comb():
+        if sel == 0:
+            q.next = a
+        else:
+            q.next = b
+
+    return comb
+
+@block
+def barrelShifter(a, dir, size, q):
+
+    @always_comb
+    def comb():
+        if dir == 0:
+            q.next = a >> size
+        else:
+            q.next = a << size
+
+    return comb
+
+
+
+
 @block
 def ula(x, y, c, zr, ng, saida, width=16):
 
@@ -22,9 +50,24 @@ def ula(x, y, c, zr, ng, saida, width=16):
     c_f = c(1)
     c_no = c(0)
 
+    zx = zerador(c_zx, x, zx_out)
+    zy = zerador(c_zy, y, zy_out)
+
+    nx = inversor(c_nx, zx_out, nx_out)
+    ny = inversor(c_ny, zy_out, ny_out)
+    
+    a = add(nx_out, ny_out, add_out)
+    a2 = nx_out & ny_out
+
+    mux = mux2way(mux_out, a2, add_out, c_f)
+    
+    no = inversor(c_no, mux_out, no_out)
+
+    c = comparador(no_out, zr, ng, width)
+
     @always_comb
     def comb():
-        pass
+        saida.next = no_out
 
     return instances()
 
@@ -35,7 +78,10 @@ def ula(x, y, c, zr, ng, saida, width=16):
 def inversor(z, a, y):
     @always_comb
     def comb():
-        pass
+        if z:
+            y.next = ~a
+        else:
+            y.next = a
 
     return instances()
 
@@ -49,7 +95,7 @@ def comparador(a, zr, ng, width):
             zr.next = 1
         else:
             zr.next = 0
-        if a[width:] == 1:
+        if a[width - 1] == 1:
             ng.next = 1
         else:
             ng.next = 0
@@ -62,9 +108,9 @@ def zerador(z, a, y):
     @always_comb
     def comb():
         if z:
-            a.next = 0
+            y.next = 0
         else:
-            a.next = y   
+            y.next = a   
 
     return instances()
 
@@ -73,16 +119,18 @@ def zerador(z, a, y):
 def add(a, b, q):
     @always_comb
     def comb():
-        pass
+        soma = a + b
+        if soma > 65535: #255:
+            q.next = 0
+        else:
+            q.next = soma
 
     return instances()
 
 
 @block
 def inc(a, q):
-    @always_comb
-    def comb():
-        pass
+    a = add(a, Signal(intbv(1)), q)
 
     return instances()
 
