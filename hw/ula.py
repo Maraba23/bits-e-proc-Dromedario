@@ -196,27 +196,25 @@ def addcla4(a, b, carry0, q):
 @block
 def addcla16(a, b, q):
     # 16-bit adder with carry lookahead
-    s = [Signal(intbv(0)[4:]) for i in range(4)]
-    claList = [None for i in range(4)]
-
-    a_ = [Signal(a[i+4:i]) for i in range(0, 16, 4)]
-    b_ = [Signal(a[i+4:i]) for i in range(0, 16, 4)]
+    a_ = [a(i) for i in range(16)]
+    b_ = [b(i) for i in range(16)]
     
-    carry = [0 for i in range(5)]
-    for i in range(4):
-        carry[i + 1] = (a_[i] & b_[i]) | ((a_[i] ^ b_[i]) & carry[i])
-
-    claList[0] = addcla4(a_[0], b_[0], carry[0], s[0])  # 2
-    claList[1] = addcla4(a_[1], b_[1], carry[1], s[1])  # 3
-    claList[2] = addcla4(a_[2], b_[1], carry[2], s[2])  # 4
-    claList[3] = addcla4(a_[3], b_[3], carry[3], s[3])  # 5
+    #claList[0] = addcla4(a_[0], b_[0], carry[0], s[0])  # 2
+    #claList[1] = addcla4(a_[1], b_[1], carry[1], s[1])  # 3
+    #claList[2] = addcla4(a_[2], b_[1], carry[2], s[2])  # 4
+    #claList[3] = addcla4(a_[3], b_[3], carry[3], s[3])  # 5
 
     @always_comb
     def comb():
-        q.next[4:0] = s[0]
-        q.next[8:4] = s[1]
-        q.next[12:8] = s[2]
-        q.next[16:12] = s[3]
+        carry = [0 for i in range(17)]
+        for i in range(16):
+            carry[i + 1] = (a_[i] & b_[i]) | ((a_[i] ^ b_[i]) & carry[i])
+        
+        if carry[16] == 0:
+            for i in range(16):
+                q.next[i] = (a_[i] ^ b_[i]) ^ carry[i]
+        else:
+            q.next = 0
 
     return instances()
 
@@ -257,7 +255,7 @@ def ula_new(x, y, c, zr, ng, sr, sl, bcd, saida, width=16):
     sx = barrelShifter2(nx_out, sr, sl, ny_out, sx_out)
 
     a1 = bcdAdder(sx_out, ny_out, bcd_out)
-    a2 = add(sx_out, ny_out, add_out)
+    a2 = addcla16(sx_out, ny_out, add_out)
     a3 = sx_out & ny_out
 
     mux0 = mux2way(mux_out, add_out, bcd_out, bcd)
@@ -294,4 +292,4 @@ def bcdAdder(x, y, z):
             z.next = concat(bc1, bc0)
 
 
-    return instances()  
+    return instances()
