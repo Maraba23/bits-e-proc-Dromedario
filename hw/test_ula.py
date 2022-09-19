@@ -242,8 +242,8 @@ def test_bcdAdder():
 
     @instance
     def stimulus():
-        for i in range(9):
-            for j in range(9):
+        for i in range(51):
+            for j in range(50):
                 a.next = i
                 b.next = j
                 yield delay(1)
