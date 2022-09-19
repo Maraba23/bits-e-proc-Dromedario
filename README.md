@@ -6,5 +6,7 @@
 - Pedro Antônio Silva
 - Thomas Chiari Ciocchetti de Souza
 
-## Link para o vídeo do projeto:
-- <a href="https://www.youtube.com/shorts/Z4_pWcjIxNA">Acesse via YouTube</a>
+## Link para o vídeo do projeto (Projeto B):
+- <a href="https://www.youtube.com/shorts/Z4_pWcjIxNA">Acesse via YouTube</a>  
+
+## Diagrama da ULA New:  

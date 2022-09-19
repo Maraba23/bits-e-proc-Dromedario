@@ -17,14 +17,17 @@ def mux2way(q, a, b, sel):
     return comb
 
 @block
-def barrelShifter(a, dir, size, q):
+def barrelShifter2(a, sr, sl, size, q):
 
     @always_comb
     def comb():
-        if dir == 0:
-            q.next = a >> size
-        else:
-            q.next = a << size
+        a_ = a
+        if sr == 1:
+            a_ = a_ >> size
+        if sl == 1:
+            a_ = a_ << size
+        
+        q.next = a_
 
     return comb
 
@@ -172,20 +175,20 @@ def fullAdder(a, b, c, soma, carry):
 
 
 @block
-def addcla4(a, b, q):
+def addcla4(a, b, carry0, q):
     # 4-bit adder with carry lookahead
-    s = [Signal(bool(0)) for i in range(4)]
-    faList = [None for i in range(3)]
-
-    faList[0] = fullAdder(a[0], b[0], 0, s[0], faList[1].carry)  # 2
-    faList[1] = fullAdder(a[1], b[1], faList[0].carry, s[1], faList[2].carry)  # 3
-    faList[2] = fullAdder(a[2], b[2], faList[1].carry, s[2], q[3])  # 4
+    a_ = [a(i) for i in range(4)]
+    b_ = [b(i) for i in range(4)]
 
     @always_comb
     def comb():
-        q[0].next = s[0]
-        q[1].next = s[1]
-        q[2].next = s[2]
+        carry = [0 for i in range(5)]
+        carry[0] = carry0
+        for i in range(4):
+            carry[i + 1] = (a_[i] & b_[i]) | ((a_[i] ^ b_[i]) & carry[i])
+        
+        for i in range(4):
+            q.next[i] = (a_[i] ^ b_[i]) ^ carry[i]
 
     return instances()
 
@@ -193,20 +196,27 @@ def addcla4(a, b, q):
 @block
 def addcla16(a, b, q):
     # 16-bit adder with carry lookahead
-    s = [Signal(intbv(0)[16:]) for i in range(4)]
+    s = [Signal(intbv(0)[4:]) for i in range(4)]
     claList = [None for i in range(4)]
 
-    claList[0] = addcla4(a[0:4], b[0:4], s[0])  # 2
-    claList[1] = addcla4(a[4:8], b[4:8], s[1])  # 3
-    claList[2] = addcla4(a[8:12], b[8:12], s[2])  # 4
-    claList[3] = addcla4(a[12:16], b[12:16], s[3])  # 5
+    a_ = [Signal(a[i+4:i]) for i in range(0, 16, 4)]
+    b_ = [Signal(a[i+4:i]) for i in range(0, 16, 4)]
+    
+    carry = [0 for i in range(5)]
+    for i in range(4):
+        carry[i + 1] = (a_[i] & b_[i]) | ((a_[i] ^ b_[i]) & carry[i])
+
+    claList[0] = addcla4(a_[0], b_[0], carry[0], s[0])  # 2
+    claList[1] = addcla4(a_[1], b_[1], carry[1], s[1])  # 3
+    claList[2] = addcla4(a_[2], b_[1], carry[2], s[2])  # 4
+    claList[3] = addcla4(a_[3], b_[3], carry[3], s[3])  # 5
 
     @always_comb
     def comb():
-        q[0:4].next = s[0]
-        q[4:8].next = s[1]
-        q[8:12].next = s[2]
-        q[12:16].next = s[3]
+        q.next[4:0] = s[0]
+        q.next[8:4] = s[1]
+        q.next[12:8] = s[2]
+        q.next[16:12] = s[3]
 
     return instances()
 
@@ -217,10 +227,71 @@ def addcla16(a, b, q):
 
 
 @block
-def ula_new(x, y, c, zr, ng, sr, sf, bcd, saida, width=16):
-    pass
+def ula_new(x, y, c, zr, ng, sr, sl, bcd, saida, width=16):
+    sx_out = Signal(intbv(0)[width:])
+    bcd_out = Signal(intbv(0)[width:])
+    zx_out = Signal(intbv(0)[width:])
+    nx_out = Signal(intbv(0)[width:])
+    zy_out = Signal(intbv(0)[width:])
+    ny_out = Signal(intbv(0)[width:])
+    and_out = Signal(intbv(0)[width:])
+    add_out = Signal(intbv(0)[width:])
+    mux_out = Signal(intbv(0)[width:])
+    mux1_out = Signal(intbv(0)[width:])
+    no_out = Signal(intbv(0)[width:])
+
+    c_zx = c(5)
+    c_nx = c(4)
+    c_zy = c(3)
+    c_ny = c(2)
+    c_f = c(1)
+    c_no = c(0)
 
 
+    zx = zerador(c_zx, x, zx_out)
+    zy = zerador(c_zy, y, zy_out)
+
+    nx = inversor(c_nx, zx_out, nx_out)
+    ny = inversor(c_ny, zy_out, ny_out)
+    
+    sx = barrelShifter2(nx_out, sr, sl, ny_out, sx_out)
+
+    a1 = bcdAdder(sx_out, ny_out, bcd_out)
+    a2 = add(sx_out, ny_out, add_out)
+    a3 = sx_out & ny_out
+
+    mux0 = mux2way(mux_out, add_out, bcd_out, bcd)
+
+    mux1 = mux2way(mux1_out, a3, mux_out, c_f)
+    
+    no = inversor(c_no, mux1_out, no_out)
+
+    c = comparador(no_out, zr, ng, width)
+
+    @always_comb
+    def comb():
+        saida.next = no_out
+
+    return instances()
+
+
+DIG0 = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+DIG1 = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9)
 @block
 def bcdAdder(x, y, z):
-    pass
+
+    @always_comb
+    def comb():
+        soma = x + y
+
+        if soma > 99:
+            z.next = 0
+
+        else:
+            bc1 = intbv(DIG1[int(soma)])[4:]
+            bc0 = intbv(DIG0[int(soma)])[4:]
+
+            z.next = concat(bc1, bc0)
+
+
+    return instances()  

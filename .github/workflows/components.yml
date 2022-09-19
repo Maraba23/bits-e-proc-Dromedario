@@ -100,3 +100,19 @@ jobs:
       - name: teste ula
         run: |
           pytest hw/test_ula.py -k test_ula
+      
+      - name: teste shifter
+        run: |
+          pytest hw/test_ula.py -k test_barrelShifter
+      
+      - name: teste bcdAdder
+        run: |
+          pytest hw/test_ula.py -k test_bcdAdder
+      
+      - name: teste ula_new
+        run: |
+          pytest hw/test_ula.py -k test_ula_new
+      
+      - name: teste addcla4
+        run: |
+          pytest hw/test_ula.py -k test_addcla4
