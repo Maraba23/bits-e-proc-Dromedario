@@ -116,3 +116,7 @@ jobs:
       - name: teste addcla4
         run: |
           pytest hw/test_ula.py -k test_cla4
+      
+      - name: teste addcla16
+        run: |
+          pytest hw/test_ula.py -k test_cla16
