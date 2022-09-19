@@ -13,3 +13,4 @@
 - <a href="https://www.youtube.com/shorts/Z4_pWcjIxNA">Acesse via YouTube</a>  
 
 ## Diagrama da ULA (new) da Rúbrica A:
+![Diagrama](./WhatsApp Image 2022-09-18 at 21.38.07.jpeg)
