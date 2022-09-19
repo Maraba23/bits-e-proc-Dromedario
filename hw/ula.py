@@ -120,7 +120,7 @@ def add(a, b, q):
     @always_comb
     def comb():
         soma = a + b
-        if soma > 65535: #255:
+        if soma > 255: #65535:
             q.next = 0
         else:
             q.next = soma
