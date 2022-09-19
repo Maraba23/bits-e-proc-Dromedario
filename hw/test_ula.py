@@ -170,7 +170,7 @@ def test_add():
 
 # -=-=-=-=-=-=-=- CONCEITO B -=-=-=-=-=-=-=-=-
 
-def test_addcla4():
+def test_cla4():
     a = Signal(intbv(0)[4:])
     b = Signal(intbv(0)[4:])
     q = Signal(intbv(0)[4:])
@@ -187,7 +187,7 @@ def test_addcla4():
     sim = Simulation(addcla4_1, stimulus)
     sim.run()
 
-def test_addcla16():
+def test_cla16():
     a = Signal(intbv(0)[16:])
     b = Signal(intbv(0)[16:])
     q = Signal(intbv(0)[16:])

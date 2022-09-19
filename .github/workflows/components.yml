@@ -115,4 +115,4 @@ jobs:
       
       - name: teste addcla4
         run: |
-          pytest hw/test_ula.py -k test_addcla4
+          pytest hw/test_ula.py -k test_cla4
