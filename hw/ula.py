@@ -120,7 +120,7 @@ def add(a, b, q):
     @always_comb
     def comb():
         soma = a + b
-        if soma > 255: #65535:
+        if soma > 65535: #255 deve ser colocado caso for rodado o toplevel, já que na placa o tamanho máximo é 8 bits.
             q.next = 0
         else:
             q.next = soma
