@@ -11,6 +11,9 @@
 
 ## Link para o vídeo do Projeto B:
 - <a href="https://www.youtube.com/shorts/Z4_pWcjIxNA">Acesse via YouTube</a>  
+  
+## Link para o vídeo do Projeto C:
+- <a href="https://youtu.be/EGpIxk3uop0">Acesse via YouTube</a>  
 
 ## Diagrama da ULA (new) da Rúbrica A:
 ![Diagrama](./diagrama.jpeg)
