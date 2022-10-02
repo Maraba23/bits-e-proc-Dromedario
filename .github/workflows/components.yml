@@ -104,24 +104,24 @@ jobs:
       # ------ SEQ -------
       - name: teste dff
         run: |
-          pytest hw/teste_seq.py -k test_dff
+          pytest hw/test_seq.py -k test_dff
       
       - name: teste binaryDigit
         run: |
-          pytest hw/teste_seq.py -k test_binaryDigit
+          pytest hw/test_seq.py -k test_binaryDigit
       
       - name: teste register8
         run: |
-          pytest hw/teste_seq.py -k test_register8
+          pytest hw/test_seq.py -k test_register8
       
       - name: teste registerN
         run: |
-          pytest hw/teste_seq.py -k test_registerN
+          pytest hw/test_seq.py -k test_registerN
       
       - name: teste pc
         run: |
-          pytest hw/teste_seq.py -k test_pc
+          pytest hw/test_seq.py -k test_pc
       
       - name: teste ram
         run: |
-          pytest hw/teste_seq.py -k test_ram
+          pytest hw/test_seq.py -k test_ram
