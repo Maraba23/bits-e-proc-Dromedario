@@ -100,3 +100,28 @@ jobs:
       - name: teste ula
         run: |
           pytest hw/test_ula.py -k test_ula
+      
+      # ------ SEQ -------
+      - name: teste dff
+        run: |
+          pytest hw/teste_seq.py -k test_dff
+      
+      - name: teste binaryDigit
+        run: |
+          pytest hw/teste_seq.py -k test_binaryDigit
+      
+      - name: teste register8
+        run: |
+          pytest hw/teste_seq.py -k test_register8
+      
+      - name: teste registerN
+        run: |
+          pytest hw/teste_seq.py -k test_registerN
+      
+      - name: teste pc
+        run: |
+          pytest hw/teste_seq.py -k test_pc
+      
+      - name: teste ram
+        run: |
+          pytest hw/teste_seq.py -k test_ram
