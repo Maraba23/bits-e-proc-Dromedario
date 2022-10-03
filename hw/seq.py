@@ -16,10 +16,11 @@ def ram(dout, din, addr, we, clk, rst, width, depth):
     
     @always_comb
     def comb():
-        if we:
-            loads[addr].next = 1
-        else:
-            loads[addr].next = 0
+        for a in range(len(registersList)):
+            if a == addr:
+                loads[a].next = we
+            else:
+                loads[a].next = 0
 
         dout.next = outputs[addr]
 
