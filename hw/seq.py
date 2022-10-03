@@ -18,9 +18,9 @@ def ram(dout, din, addr, we, clk, rst, width, depth):
     def comb():
         for a in range(len(registersList)):
             if a == addr:
-                loads[addr].next = we
+                loads[a].next = we
             else:
-                loads[addr].next = 0
+                loads[a].next = 0
 
         dout.next = outputs[addr]
 
