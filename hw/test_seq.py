@@ -107,7 +107,8 @@ def test_registerN():
             assert i == output
 
     sim = Simulation(dut, [stimulus, clkgen])
-    sim.run(20)
+    traceSignals(dut)
+    sim.run(200)
 
 
 def test_register8():
@@ -133,6 +134,7 @@ def test_register8():
             assert i == output
 
     sim = Simulation(dut, [stimulus, clkgen])
+    traceSignals(dut)
     sim.run(200)
 
 
@@ -162,6 +164,7 @@ def test_binaryDigit():
         load.next = 0
 
     sim = Simulation(dut, [stimulus, clkgen])
+    traceSignals(dut)
     sim.run(200)
 
 
@@ -190,4 +193,5 @@ def test_dff():
         clear.next = 0
 
     sim = Simulation(dff_inst, [stimulus, clkgen, cleargen])
+    traceSignals(dff_inst)
     sim.run(200)
