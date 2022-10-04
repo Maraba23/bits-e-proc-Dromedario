@@ -13,8 +13,12 @@ htmlcov
 /venv/
 venv/
 ./venv/
+<<<<<<< HEAD
 /hw/__pycache__/
 ./hw/__pycache__/
 hw/__pycache__/
 ./hw/__pycache__
 /hw/__pycache__
+=======
+env
+>>>>>>> origin/main

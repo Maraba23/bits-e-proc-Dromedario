@@ -28,6 +28,7 @@ jobs:
           pip install -r requirements.txt
 
       # ------------- Tests ----------------
+      
       - name: test and16
         run: |
           pytest hw/test_components.py -k and16
@@ -67,5 +68,60 @@ jobs:
       - name: test deMux8way
         run: |
           pytest hw/test_components.py -k test_deMux8way
+      
+      - name: test bin2bcd
+        run: |
+          pytest hw/test_components.py -k test_bin2bcd
+      
 
 
+      # ----- ULA ------
+
+      - name: test comparador
+        run: |
+          pytest hw/test_ula.py -k test_comparador
+      
+      - name: test inversor
+        run: |
+          pytest hw/test_ula.py -k test_inversor
+
+      - name: test zerador
+        run: |
+          pytest hw/test_ula.py -k test_zerador
+      
+      - name: test add
+        run: |
+          pytest hw/test_ula.py -k test_add
+      
+      - name: test inc
+        run: |
+          pytest hw/test_ula.py -k test_inc
+      
+      - name: teste ula
+        run: |
+          pytest hw/test_ula.py -k test_ula
+      
+      # ------ SEQ -------
+      - name: teste dff
+        run: |
+          pytest hw/test_seq.py -k test_dff
+      
+      - name: teste binaryDigit
+        run: |
+          pytest hw/test_seq.py -k test_binaryDigit
+      
+      - name: teste register8
+        run: |
+          pytest hw/test_seq.py -k test_register8
+      
+      - name: teste registerN
+        run: |
+          pytest hw/test_seq.py -k test_registerN
+      
+      - name: teste pc
+        run: |
+          pytest hw/test_seq.py -k test_pc
+      
+      - name: teste ram
+        run: |
+          pytest hw/test_seq.py -k test_ram
