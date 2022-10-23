@@ -144,10 +144,28 @@ def test_factorial():
     tst = {1: math.factorial(ram[0])}
     assert nasm_test("factorial.nasm", ram, tst, 10000)
 
-    ram = {1: 0}
+    ram = {0: 0}
     tst = {1: math.factorial(ram[0])}
     assert nasm_test("factorial.nasm", ram, tst, 10000)
 
-    ram = {1: 4}
+    ram = {0: 2}
     tst = {1: math.factorial(ram[0])}
     assert nasm_test("factorial.nasm", ram, tst, 10000)
+
+    ram = {0: 5}
+    tst = {1: math.factorial(ram[0])}
+    assert nasm_test("factorial.nasm", ram, tst, 10000)
+
+
+def test_multiploDeDois():
+    ram = {5: 4}
+    tst = {0: 1}
+    assert nasm_test("multiploDeDois.nasm", ram, tst, 10000)
+
+    ram = {5: 5}
+    tst = {0: 0}
+    assert nasm_test("multiploDeDois.nasm", ram, tst, 10000)
+
+    ram = {5: -4}
+    tst = {0: 1}
+    assert nasm_test("multiploDeDois.nasm", ram, tst, 10000)
