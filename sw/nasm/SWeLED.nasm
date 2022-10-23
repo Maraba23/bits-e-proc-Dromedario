@@ -7,19 +7,21 @@
 ; LED = OFF OFF OFF OFF OFF OFF OFF ON ON ON ON ON !SW3 !SW2 !SW1 0
 
 leaw $496, %A ;
-movw %A, %D ; vetor da base 
+movw %A, %D ; vetor da base
+
 leaw $21185 , %A ; vetor das switchs
-andw (%A) , %D , %D ; armazena o (AND result) em D
-subw (%A) , %D , %D ; subtrai D de A e armazena em D
-notw %D ; inverte D
+andw (%A) , %D , %D
+subw (%A) , %D , %D ;
+notw %D ;
 leaw $5 , %A
-movw %D , (%A) ; armazena o resultado D na R[5]
+movw %D , (%A) ; até aki td certo
 
 ; fazer a operação é_par com D.
 ; subtrair not(é_par) do valor armazenado na R[5] e mover esse valor para %D
 
 leaw $21184, %A ; localiza os leds
 movw %D, (%A) ; liga os leds
+
 
 ; fluxo :
 ; sws = 010101011 - sw3 = 1 sw2 = 0 e sw1 = 1
