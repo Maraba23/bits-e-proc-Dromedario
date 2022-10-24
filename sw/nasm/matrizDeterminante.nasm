@@ -38,7 +38,7 @@ WHILE:
 
     leaw $1004, %A ; soma
     movw (%A), %D
-    leaw $1 %A
+    leaw $1, %A
     addw (%A), %D, %D
     movw %D, (%A)
 
@@ -68,7 +68,7 @@ WHILE2:
 
     leaw $1003, %A ; soma
     movw (%A), %D
-    leaw $2 %A
+    leaw $2, %A
     addw (%A), %D, %D
     movw %D, (%A)
 

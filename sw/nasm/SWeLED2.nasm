@@ -8,7 +8,6 @@
 ;                                ^            ^
 ;                                | TRUQUE!    | TRUQUE!
 
-
 ; 0000000000110100 - LED padrão
 
 Preparando:
