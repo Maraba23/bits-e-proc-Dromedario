@@ -6,10 +6,6 @@
 ; Calcula o fatorial do número em R0 e armazena o valor em R1.
 
 PREPARANDO:
-    leaw $0, %A                     ; Joga 0 em A
-    movw %A, %D                     ; Move 0 pra D
-    leaw $2, %A                     ; Joga 2 em A
-    movw %D, (%A)                   ; Move D para RAM[2]
     leaw $1, %A                     ; Joga 1 em A
     movw %A, %D                     ; Move 1 pra D
     movw %D, (%A)                   ; Move D pra RAM[1]
@@ -23,14 +19,16 @@ VAI:
     je
     nop 
 
-    leaw $1, %A                     ; Joga 1 em A
-    movw %A, %D                     ; Move 1 pra D
     leaw $2, %A                     ; Joga 2 em A
-    addw (%A), %D, (%A)             ; RAM[2] ++
+    movw (%A), %D                   ; Move RAM[2] pra D
+    leaw $1, %A                     ; Joga 1 em A
+    addw %D, %A, %D                 ; RAM[2] ++
+    leaw $2, %A                     ; Joga 2 em A
+    movw %D, (%A)                   ; Move D pra RAM[2]
     leaw $1, %A                     ; joga 1 em A
     movw %A, %D                     ; Joga 1 em D
     leaw $4, %A                     ; Joga 4 em A
-    movw %D, (A%)                   ; RAM[4] == D
+    movw %D, (%A)                   ; RAM[4] == D
     leaw $1, %A                     ; Joga 1 em A
     movw (%A), %D                   ; Move RAM[1] pra D
     leaw $3, %A                     ; Joga 3 pra A
@@ -48,7 +46,11 @@ CONTINUA:
     leaw $1, %A                     ; Joga 1 em A
     movw %A, %D                     ; Move 1 pra D
     leaw $4, %A                     ; Joga 4 em A
-    addw (%A), %D, (%A)             ; RAM[4] ++
+    movw (%A), %D                   ; Move RAM[4] pra D
+    leaw $1, %A                     ; Joga 1 em A
+    addw %D, %A,%D                  ; RAM[4] ++
+    leaw $4, %A                     ; Joga 4 em A
+    movw %D, (%A)                   ; Move D pra RAM[4]
     leaw $1, %A                     ; Joga 1 em A
     movw (%A), %D                   ; Move RAM[1] para D
     leaw $3, %A                     ; Joga 3 em A
