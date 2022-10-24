@@ -154,26 +154,26 @@ def test_factorial():
 
 def test_SWeLED():
     ram = {21185: 4}
-    tst = {21184: 506}
+    tst = {21184: 65530}
 
     assert nasm_test("SWeLED.nasm", ram, tst, 10000)
 
     ram = {21185: 12}
-    tst = {21184: 498}
+    tst = {21184: 65522}
 
     assert nasm_test("SWeLED.nasm", ram, tst, 10000)
 
     ram = {21185: 14}
-    tst = {21184: 496}
+    tst = {21184: 65520}
 
     assert nasm_test("SWeLED.nasm", ram, tst, 10000)
 
     ram = {21185: 416}
-    tst = {21184: 510}
+    tst = {21184: 65534}
 
     assert nasm_test("SWeLED.nasm", ram, tst, 10000)
 
     ram = {21185: 165}
-    tst = {21184: 506}
+    tst = {21184: 65530}
 
     assert nasm_test("SWeLED.nasm", ram, tst, 10000)
