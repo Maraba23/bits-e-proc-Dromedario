@@ -152,6 +152,14 @@ def test_factorial():
     tst = {1: math.factorial(ram[0])}
     assert nasm_test("factorial.nasm", ram, tst, 10000)
 
+    ram = {0: 3}
+    tst = {1: math.factorial(ram[0])}
+    assert nasm_test("factorial.nasm", ram, tst, 10000)
+
+    ram = {0: 4}
+    tst = {1: math.factorial(ram[0])}
+    assert nasm_test("factorial.nasm", ram, tst, 10000)
+
     ram = {0: 5}
     tst = {1: math.factorial(ram[0])}
     assert nasm_test("factorial.nasm", ram, tst, 10000)
