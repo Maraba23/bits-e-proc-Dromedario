@@ -163,6 +163,33 @@ def test_factorial():
     ram = {0: 5}
     tst = {1: math.factorial(ram[0])}
     assert nasm_test("factorial.nasm", ram, tst, 10000)
+    
+
+def test_SWeLED():
+    ram = {21185: 4}
+    tst = {21184: 65530}
+
+    assert nasm_test("SWeLED.nasm", ram, tst, 10000)
+
+    ram = {21185: 12}
+    tst = {21184: 65522}
+
+    assert nasm_test("SWeLED.nasm", ram, tst, 10000)
+
+    ram = {21185: 14}
+    tst = {21184: 65520}
+
+    assert nasm_test("SWeLED.nasm", ram, tst, 10000)
+
+    ram = {21185: 416}
+    tst = {21184: 65534}
+
+    assert nasm_test("SWeLED.nasm", ram, tst, 10000)
+
+    ram = {21185: 165}
+    tst = {21184: 65530}
+
+    assert nasm_test("SWeLED.nasm", ram, tst, 10000)
 
 
 def test_multiploDeDois():
