@@ -26,30 +26,38 @@
 ;  RAM[14] = `?`
 ;  RAM[15] = NULL = 0x0000
 
-INICIO:
-    leaw $8, %A
+
+Preparando:
+    leaw $8, %A ; coloca 8 na RAM[1], que será contador de RAM
     movw %A, %D
     leaw $1, %A
     movw %D, (%A)
 
+    leaw $0, %A ; coloca 0 na RAM[0]
+    movw $0, (%A)
+
+
 WHILE:
+    leaw $1, %A
+    movw (%A), %D ; pega o contador da RAM[1] e salva em D
     movw %D, %A
-    movw (%A), %D
+    movw (%A), %D ; pega o caracter que está na RAM[contador]
+
     leaw $END, %A
-    je
+    je ; se o caracter for NULL, pula para o final
     nop
 
-    leaw $1, %A
-    incw (%A)
+    leaw $0, %A ; pega o tamanho
     movw (%A), %D
+    addw %D, $1, (%A)
+
+    leaw $1, %A
+    movw (%A), %D
+    addw %D, $1, (%A)
+
     leaw $WHILE, %A
     jmp
     nop
 
+
 END:
-    leaw $1, %A
-    movw (%A), %D
-    leaw $8, %A
-    subw %D, %A, %D
-    leaw $0, %A
-    movw %D, (%A)

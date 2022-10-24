@@ -1,0 +1,11 @@
+myhdl
+pytest
+pyyaml
+tabulate
+click
+pytest
+requests
+python-slugify
+unicode
+git+https://github.com/insper-classroom/telementry-client-py
+git+https://github.com/Insper/bits-e-proc-tools
