@@ -223,6 +223,10 @@ def test_matrizDeterminante():
     tst = {0: 3}
     assert nasm_test("matrizDeterminante.nasm", ram, tst, 10000)
 
+    ram = {1000: 2, 1001: 2, 1003: 3, 1004: 4}
+    tst = {0: 2}
+    assert nasm_test("matrizDeterminante.nasm", ram, tst, 10000)
+
 
 def test_vectorMean():
     ram = {4:4, 5:1, 6:2, 7:1, 8:8}
