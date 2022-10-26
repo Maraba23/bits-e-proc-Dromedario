@@ -66,7 +66,7 @@ SEGUE:
 DIV:
     leaw $3, %A
     movw (%A), %D
-    leaw $CHECK, %A
+    leaw $END, %A
     jle
     nop
 
