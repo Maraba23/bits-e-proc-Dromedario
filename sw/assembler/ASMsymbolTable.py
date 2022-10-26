@@ -6,7 +6,7 @@ class SymbolTable:
         self.table = {}
         self.init()
 
-    # TODO
+    
     def init(self):
         """
         Inicializa a tabela de simbolos com os simbolos pre definidos
@@ -15,7 +15,26 @@ class SymbolTable:
         SCREEN, KBD, ..
         """
 
-        pass
+        self.table = {
+            'SP': 0,
+            'LCL': 1,
+            'ARG': 2,
+            'THIS': 3,
+            'THAT': 4,
+            'SCREEN': 16384,
+            'LED': 21184,
+            'SW': 21185,
+            'x': 16,
+            'y': 17,
+            'LOOP': 2,
+            'UPDATE': 12,
+            'END': 14,
+            'KBD': 24576
+        }
+
+        for i in range(16):
+            self.table[f'R{i}'] = i
+        
 
     # TODO
     def addEntry(self, symbol: str, address: int):

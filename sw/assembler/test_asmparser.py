@@ -50,6 +50,22 @@ def test_commandType():
     ptest.currentCommand = ['rsubw', '%D', '%A', '%D']
     assert ptest.commandType() == ptest.CommandType['C']
 
+    ptest.currentCommand = ['negw', '%D']
+    assert ptest.commandType() == ptest.CommandType['C']
+
+    ptest.currentCommand = ['subw', '%D', '%A', '(%A']
+    assert ptest.commandType() == ptest.CommandType['C']
+
+    ptest.currentCommand = ['jmp']
+    assert ptest.commandType() == ptest.CommandType['C']
+
+    ptest.currentCommand = ['label:']
+    assert ptest.commandType() == ptest.CommandType['L']
+
+    ptest.currentCommand = ['leaw', '$32796', '%A']
+    assert ptest.commandType() == ptest.CommandType['A']
+
+
 
 def test_symbol():
     fnasm = open('test_assets/symbol.nasm', 'r')
