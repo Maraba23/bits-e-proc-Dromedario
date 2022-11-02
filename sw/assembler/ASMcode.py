@@ -7,7 +7,7 @@ class Code:
         """
         pass
 
-    # TODO
+    # DONE
     def dest(self, mnemnonic):
         """
         Retorna o código binário do(s) registrador(es) que vão receber o valor da instrução.
@@ -16,7 +16,38 @@ class Code:
           que define o endereco da operacao
         """
 
-        bits = "0000"
+        dests = {
+            "%A": "001",
+            "%D": "010",
+            "(%A)": "100",
+            "%D%A": "011",
+            "%A%D": "011",
+            "(%A)%A": "101",
+            "%A(%A)": "101",
+            "(%A)%D": "110",
+            "%D(%A)": "110",
+            "(%A)%D%A": "111",
+        }
+
+        if mnemnonic[0] == 'movw':
+            if len(mnemnonic) == 3:
+                bits = dests[mnemnonic[-1]]
+            elif len(mnemnonic) == 4:
+                bits = dests[f'{mnemnonic[-2]}{mnemnonic[-1]}']
+            elif len(mnemnonic) == 5:
+                bits = dests["(%A)%D%A"]
+        elif mnemnonic[0] in ['addw', 'subw', 'rsubw', 'andw', 'orw']:
+            if len(mnemnonic) == 4:
+                bits = dests[mnemnonic[-1]]
+            elif len(mnemnonic) == 5:
+                bits = dests[f'{mnemnonic[-2]}{mnemnonic[-1]}']
+            elif len(mnemnonic) == 6:
+                bits = dests["(%A)%D%A"]
+        elif mnemnonic[0] in ['incw', 'decw', 'notw', 'negw']:
+            bits = dests[mnemnonic[-1]]
+        else:
+            bits = "000"
+
         return bits
 
     # TODO
@@ -30,7 +61,7 @@ class Code:
         bits = "000000"
         return bits
 
-    # TODO
+    # DONE
     def jump(self, mnemnonic):
         """
         Retorna o código binário do mnemônico para realizar uma operação de jump (salto).
