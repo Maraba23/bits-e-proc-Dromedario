@@ -5,8 +5,9 @@ class Parser:
     # DONE
     def __init__(self, inputFile):
         self.file = inputFile  # self.openFile()  # arquivo de leitura
+        self.code = self.file.readlines()
         self.lineNumber = 0  # linha atual do arquivo (nao do codigo gerado)
-        self.currentCommand = ""  # comando atual
+        self.currentCommand = []  # comando atual
         self.currentLine = ""  # linha de codigo atual
         self.CommandType = {"A": "A_COMMAND", "C": "C_COMMAND", "L": "L_COMMAND"}
 
@@ -25,7 +26,7 @@ class Parser:
     def close(self):
         self.file.close()
 
-    # TODO
+    # DONE
     def advanced(self):
         """
         Carrega uma instrução e avança seu apontador interno para o próxima
@@ -36,10 +37,27 @@ class Parser:
 
         # você deve varrer self.file (arquivo já aberto) até encontrar: fim de arquivo
         # ou uma nova instrucao
-        # self.file
-        pass
+        linhas = self.code
+        print(self.code)
+        while len(linhas) > self.lineNumber:
+            self.currentCommand = []
+            linha = linhas[self.lineNumber].strip()
+            linha = linha.split()
+            self.lineNumber += 1
 
-    # TODO
+            for i in linha:
+                if i == ';':
+                    break
+                else:
+                    self.currentCommand.append(i.replace(",",""))
+
+            if self.currentCommand != []:
+                return True
+
+        return False
+            
+
+    # DONE
     def commandType(self):
         """
         Retorna o tipo da instrução passada no argumento:
