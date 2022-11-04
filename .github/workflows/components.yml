@@ -143,9 +143,9 @@ jobs:
           pytest sw/assembler/test_asmparser.py -k test_symbol
 
       - name: teste dest
-      run : |
-        pytest sw/assembler/test_asmcode.py -k test_dest
+        run : |
+          pytest sw/assembler/test_asmcode.py -k test_dest
 
       - name: teste comp
-      run : |
-        pytest sw/assembler/test_asmcode.py -k test_comp
+        run : |
+          pytest sw/assembler/test_asmcode.py -k test_comp
