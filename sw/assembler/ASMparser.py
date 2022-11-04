@@ -5,7 +5,7 @@ class Parser:
     # DONE
     def __init__(self, inputFile):
         self.file = inputFile  # self.openFile()  # arquivo de leitura
-        self.code = self.file.readlines()
+        self.code = self.file.readlines() # copia legivel do files
         self.lineNumber = 0  # linha atual do arquivo (nao do codigo gerado)
         self.currentCommand = []  # comando atual
         self.currentLine = ""  # linha de codigo atual
@@ -37,8 +37,8 @@ class Parser:
 
         # você deve varrer self.file (arquivo já aberto) até encontrar: fim de arquivo
         # ou uma nova instrucao
+
         linhas = self.code
-        print(self.code)
         while len(linhas) > self.lineNumber:
             self.currentCommand = []
             linha = linhas[self.lineNumber].strip()
@@ -87,7 +87,7 @@ class Parser:
         """
 
         # analise o self.currentCommand
-        pass
+        return self.currentCommand[1].replace('$','')
 
     # TODO
     def label(self):

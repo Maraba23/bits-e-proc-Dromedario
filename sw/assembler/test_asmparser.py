@@ -4,7 +4,7 @@ from .ASMparser import Parser
 
 
 def test_advanced():
-    fnasm = open('sw/assembler/test_assets/mult.nasm', 'r')
+    fnasm = open('test_assets/mult.nasm', 'r') # se colocar sw/assembler o actions passa mas o pytest não pega.
     ptest = Parser(fnasm)
 
     assert ptest.advanced() is True
