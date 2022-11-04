@@ -4,7 +4,7 @@ from .ASMparser import Parser
 
 
 def test_advanced():
-    fnasm = open('test_assets/mult.nasm', 'r')
+    fnasm = open('sw/assembler/test_assets/mult.nasm', 'r')
     ptest = Parser(fnasm)
 
     assert ptest.advanced() is True
