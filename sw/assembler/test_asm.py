@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 #
 import filecmp
+import os
 from .ASM import ASM
 
-NASM_IN = 'test_assets/factorial.nasm'
-HACK_OUT = 'test_assets/factorial_out.hack'
-HACK_REF = 'test_assets/factorial.hack'
+dir_test = os.path.dirname(__file__)
+NASM_IN = os.path.join(dir_test, 'test_assets/factorial.nasm')
+HACK_OUT = os.path.join(dir_test, 'test_assets/factorial_out.hack')
+HACK_REF = os.path.join(dir_test, 'test_assets/factorial.hack')
 
 def initASM():
     fNasm = open(NASM_IN, 'r')
