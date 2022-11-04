@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 
+import os
 from .ASMparser import Parser
+
+dir_test = os.path.dirname(__file__)
+MULT_NASM = os.path.join(dir_test, 'test_assets/mult.nasm')
+SYMBOL_NASM = os.path.join(dir_test, 'test_assets/symbol.nasm')
+LABOL_NASM = os.path.join(dir_test, 'test_assets/labol.nasm')
 
 
 def test_advanced():
-    fnasm = open('test_assets/mult.nasm', 'r') # se colocar sw/assembler o actions passa mas o pytest não pega.
+    fnasm = open(MULT_NASM, 'r')
     ptest = Parser(fnasm)
 
     assert ptest.advanced() is True
@@ -29,7 +35,7 @@ def test_advanced():
 
 
 def test_commandType():
-    fnasm = open('test_assets/mult.nasm', 'r')
+    fnasm = open(MULT_NASM, 'r')
     ptest = Parser(fnasm)
 
     ptest.currentCommand = ['leaw', '$2', '%A']
@@ -68,7 +74,7 @@ def test_commandType():
 
 
 def test_symbol():
-    fnasm = open('test_assets/symbol.nasm', 'r')
+    fnasm = open(SYMBOL_NASM, 'r')
     ptest = Parser(fnasm)
 
     assert ptest.advanced() is True
@@ -84,7 +90,7 @@ def test_symbol():
 
 
 def test_labol():
-    fnasm = open('test_assets/labol.nasm', 'r')
+    fnasm = open(LABOL_NASM, 'r')
     ptest = Parser(fnasm)
 
     assert ptest.advanced() is True
