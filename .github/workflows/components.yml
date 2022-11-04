@@ -125,3 +125,27 @@ jobs:
       - name: teste ram
         run: |
           pytest hw/test_seq.py -k test_ram
+
+      # ------ ASSEMBLY -------
+
+      # ------ ASSEMBLER -------
+
+      - name: teste advanced
+        run: |
+          pytest sw/assembler/test_asmparser.py -k test_advanced
+
+      - name: teste label
+        run : |
+          pytest sw/assembler/test_asmparser.py -k test_label
+
+      - name: teste symbol
+        run : |
+          pytest sw/assembler/test_asmparser.py -k test_symbol
+
+      - name: teste dest
+      run : |
+        pytest sw/assembler/test_asmcode.py -k test_dest
+
+      - name: teste comp
+      run : |
+        pytest sw/assembler/test_asmcode.py -k test_comp
