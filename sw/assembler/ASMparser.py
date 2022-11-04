@@ -99,7 +99,7 @@ class Parser:
         """
 
         # analise o self.currentCommand
-        pass
+        return self.currentCommand[0][:-1]
 
     # DONE
     def command(self):
