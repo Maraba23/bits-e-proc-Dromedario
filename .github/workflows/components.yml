@@ -136,11 +136,15 @@ jobs:
 
       - name: teste label
         run : |
-          pytest sw/assembler/test_asmparser.py -k test_label
+          pytest sw/assembler/test_asmparser.py -k test_labol
 
       - name: teste symbol
         run : |
           pytest sw/assembler/test_asmparser.py -k test_symbol
+      
+      - name: teste CommandType
+        run : |
+          pytest sw/assembler/test_asmparser.py -k test_commandType
 
       - name: teste dest
         run : |
