@@ -2,9 +2,7 @@
 
 class Code:
     def __init__(self):
-        """
-        Se precisar faca uso de variáveis.
-        """
+
         pass
 
     # DONE
