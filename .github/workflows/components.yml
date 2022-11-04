@@ -133,3 +133,32 @@ jobs:
       - name: teste advanced
         run: |
           pytest sw/assembler/test_asmparser.py -k test_advanced
+
+      - name: teste label
+        run : |
+          pytest sw/assembler/test_asmparser.py -k test_labol
+
+      - name: teste symbol
+        run : |
+          pytest sw/assembler/test_asmparser.py -k test_symbol
+      
+      - name: teste CommandType
+        run : |
+          pytest sw/assembler/test_asmparser.py -k test_commandType
+
+      - name: teste dest
+        run : |
+          pytest sw/assembler/test_asmcode.py -k test_dest
+
+      - name: teste comp
+        run : |
+          pytest sw/assembler/test_asmcode.py -k test_comp
+        
+      - name: teste jump
+        run : |
+          pytest sw/assembler/test_asmcode.py -k test_jump
+
+      - name: teste toBinary
+        run : |
+          pytest sw/assembler/test_asmcode.py -k test_toBinary
+      
