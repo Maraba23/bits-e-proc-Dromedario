@@ -31,6 +31,16 @@ class ASM:
 
         Dependencia : Parser, SymbolTable
         """
+        while self.parser.advanced():
+            if self.parser.commandType() == "L_COMMAND":
+                self.symbolTable.addEntry(self.parser.label(), self.parser.lineNumber)
+            elif self.parser.commandType() == "A_COMMAND":
+                if self.parser.symbol().isnumeric():
+                    continue
+                else:
+                    if not self.symbolTable.contains(self.parser.symbol()):
+                        self.symbolTable.addEntry(self.parser.symbol(), self.symbolTable.getNextAddress())
+        
         self.parser.reset()
 
     # TODO
@@ -45,8 +55,8 @@ class ASM:
 
         while self.parser.advanced():
             if self.parser.commandType() == "C_COMMAND":
-                bin = ""
+                bin = "111" + self.code.comp(self.parser.comp()) + self.code.dest(self.parser.dest()) + self.code.jump(self.parser.jump())
                 self.hack.write(bin + "\n")
             elif self.parser.commandType() == "A_COMMAND":
-                bin = ""
+                bin = "0" + self.code.address(self.parser.symbol())
                 self.hack.write(bin + "\n")

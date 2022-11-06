@@ -189,3 +189,4 @@ class Code:
         Converte um valor inteiro para binário 16 bits.
         """
         return f"{int(value):016b}"
+        
