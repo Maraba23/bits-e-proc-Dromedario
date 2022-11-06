@@ -58,6 +58,13 @@ class Parser:
                     break
                 else:
                     self.currentCommand.append(i.replace(",",""))
+            
+
+            #if linha[0] in ['jmp', 'je', 'jne', 'jg', 'jge', 'jl', 'jle'] and linhas[self.lineNumber + 1].strip() == 'nop':
+            #    for j in range(len(linhas), self.lineNumber, -1):
+            #        linhas[j] = linhas[j + 1]
+            #   linhas[self.lineNumber + 1] = 'nop'
+                
 
             if self.currentCommand != []:
                 self.currentLine = linha

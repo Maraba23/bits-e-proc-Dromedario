@@ -22,7 +22,7 @@ class ASM:
             print("--> ERRO AO TRADUZIR: {}".format(self.parser.currentLine))
             return -1
 
-    # TODO
+    # DONE
     def fillSymbolTable(self):
         """
         primeiro passo para a construção da tabela de símbolos de marcadores (labels)
@@ -35,17 +35,10 @@ class ASM:
             if self.parser.commandType() == "L_COMMAND":
                 self.parser.no_labels += 1
                 self.symbolTable.addEntry(self.parser.label(), self.parser.lineNumber - self.parser.no_labels)
-            '''
-            elif self.parser.commandType() == "A_COMMAND":
-                if self.parser.symbol().isnumeric():
-                    continue
-                else:
-                    if not self.symbolTable.contains(self.parser.symbol()):
-                        self.symbolTable.addEntry(self.parser.symbol(), self.symbolTable.getNextAddress())
-            '''
+            
         self.parser.reset()
 
-    # TODO
+    # DONE
     def generateMachineCode(self):
         """
         Segundo passo para a geração do código de máquina
