@@ -164,19 +164,19 @@ jobs:
       
       - name: teste SymbolTable init
         run : |
-          pytest sw/assembler/test_asmsymboltable.py -k test_init
+          pytest sw/assembler/test_symboltable.py -k test_init
       
       - name: teste addEntry
         run : |
-          pytest sw/assembler/test_asmsymboltable.py -k test_addEntry
+          pytest sw/assembler/test_symboltable.py -k test_addEntry
       
       - name: teste contains
         run : |
-          pytest sw/assembler/test_asmsymboltable.py -k test_contains
+          pytest sw/assembler/test_symboltable.py -k test_contains
       
       - name: teste getAddress
         run : |
-          pytest sw/assembler/test_asmsymboltable.py -k test_getAddress
+          pytest sw/assembler/test_symboltable.py -k test_getAddress
       
       - name: teste toBinary
         run : |
