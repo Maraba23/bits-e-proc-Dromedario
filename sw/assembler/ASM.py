@@ -18,11 +18,11 @@ class ASM:
             self.fillSymbolTable()
             self.generateMachineCode()
             return 0
-        except:
+        except Exception as e:
             print("--> ERRO AO TRADUZIR: {}".format(self.parser.currentLine))
             return -1
 
-    # TODO
+    # DONE
     def fillSymbolTable(self):
         """
         primeiro passo para a construção da tabela de símbolos de marcadores (labels)
@@ -33,17 +33,12 @@ class ASM:
         """
         while self.parser.advanced():
             if self.parser.commandType() == "L_COMMAND":
-                self.symbolTable.addEntry(self.parser.label(), self.parser.lineNumber)
-            elif self.parser.commandType() == "A_COMMAND":
-                if self.parser.symbol().isnumeric():
-                    continue
-                else:
-                    if not self.symbolTable.contains(self.parser.symbol()):
-                        self.symbolTable.addEntry(self.parser.symbol(), self.symbolTable.getNextAddress())
-        
+                self.parser.no_labels += 1
+                self.symbolTable.addEntry(self.parser.label(), self.parser.lineNumber - self.parser.no_labels)
+            
         self.parser.reset()
 
-    # TODO
+    # DONE
     def generateMachineCode(self):
         """
         Segundo passo para a geração do código de máquina
@@ -52,11 +47,17 @@ class ASM:
 
         Dependencias : Parser, Code
         """
-
+        
         while self.parser.advanced():
             if self.parser.commandType() == "C_COMMAND":
-                bin = "111" + self.code.comp(self.parser.comp()) + self.code.dest(self.parser.dest()) + self.code.jump(self.parser.jump())
+                if self.parser.currentCommand[0] == "nop":
+                    bin = '100001010100000000'
+                else:
+                    bin = "1000" + self.code.comp(self.parser.currentCommand) + "0" + self.code.dest(self.parser.currentCommand) + self.code.jump(self.parser.currentCommand)
                 self.hack.write(bin + "\n")
             elif self.parser.commandType() == "A_COMMAND":
-                bin = "0" + self.code.address(self.parser.symbol())
+                if self.symbolTable.contains(self.parser.symbol()):
+                    bin = "00" + self.code.toBinary(self.symbolTable.getAddress(self.parser.symbol()))
+                else:
+                    bin = "00" + self.code.toBinary(self.parser.symbol())
                 self.hack.write(bin + "\n")

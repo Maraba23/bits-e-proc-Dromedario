@@ -162,3 +162,39 @@ jobs:
         run : |
           pytest sw/assembler/test_asmcode.py -k test_toBinary
       
+      - name: teste SymbolTable init
+        run : |
+          pytest sw/assembler/test_symboltable.py -k test_init
+      
+      - name: teste addEntry
+        run : |
+          pytest sw/assembler/test_symboltable.py -k test_addEntry
+      
+      - name: teste contains
+        run : |
+          pytest sw/assembler/test_symboltable.py -k test_contains
+      
+      - name: teste getAddress
+        run : |
+          pytest sw/assembler/test_symboltable.py -k test_getAddress
+      
+      - name: teste toBinary
+        run : |
+          pytest sw/assembler/test_asmcode.py -k test_toBinary
+      
+      - name: teste fillSymbolTtable_labels
+        run : |
+          pytest sw/assembler/test_asm.py -k test_fillSymbolTtable_labels
+      
+      - name: teste fillSymbolTtable_address
+        run : |
+          pytest sw/assembler/test_asm.py -k test_fillsymboltable_address
+      
+      - name: teste asm_run
+        run : |
+          pytest sw/assembler/test_asm.py -k test_asm_run
+      
+      - name: teste asm_hack
+        run : |
+          pytest sw/assembler/test_asm.py -k test_asm_hack
+      

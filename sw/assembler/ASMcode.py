@@ -13,7 +13,7 @@ class Code:
         - return bits: String de 4 bits com código em linguagem de máquina
           que define o endereco da operacao
         """
-
+        print(mnemnonic, 'dest')
         dests = {
             "%A": "001",
             "%D": "010",
@@ -154,6 +154,8 @@ class Code:
                     bits = '1000111'
         elif mnemnonic[0] in ['jmp', 'jle', 'je', 'jl', 'jne', 'jge', 'jg']:
             bits = '0001100'
+        elif mnemnonic[0] == 'nop':
+            bits = '0000000'
         else:
             raise ValueError(f'Erro: mnemônico {mnemnonic} não reconhecido.')
 
@@ -166,6 +168,7 @@ class Code:
         - in mnemnonic: vetor de mnemônicos "instrução" a ser analisada.
         - return bits: (String de 3 bits) com código em linguagem de máquina para a instrução.
         """
+        
         jumps = {
             'jg': '001',
             'je': '010',
