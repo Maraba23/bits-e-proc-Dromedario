@@ -188,7 +188,7 @@ jobs:
       
       - name: teste fillSymbolTtable_address
         run : |
-          pytest sw/assembler/test_asm.py -k test_fillSymbolTtable_address
+          pytest sw/assembler/test_asm.py -k test_fillsymboltable_address
       
       - name: teste asm_run
         run : |
