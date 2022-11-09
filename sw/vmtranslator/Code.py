@@ -77,8 +77,9 @@ class Code:
 
     # TODO
     def writeIf(self, label):
-        commands.append(self.writeHead("if") + " " + label)
         commands = []
+        commands.append(self.writeHead("if") + " " + label)
+        
 
         # TODO ...
         self.commandsToFile(commands)
