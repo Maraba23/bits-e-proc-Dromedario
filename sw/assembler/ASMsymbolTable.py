@@ -29,7 +29,7 @@ class SymbolTable:
             'LOOP': 2,
             'UPDATE': 12,
             'END': 14,
-            'KBD': 24576
+            'KBD': 24576,
         }
 
         for i in range(16):
