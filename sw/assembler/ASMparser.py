@@ -11,6 +11,7 @@ class Parser:
         self.code = [line for line in self.code if line.strip() != '' and line.strip()[0] != ';']
         self.no_labels = 0
         self.no_additions = 0
+        self.no_leawD = 0
 
         self.lineNumber = 0  # linha atual do arquivo (nao do codigo gerado)
         self.currentCommand = []  # comando atual

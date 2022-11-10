@@ -41,12 +41,15 @@ class ASM:
             if self.parser.commandType() == "L_COMMAND":
                 print(self.parser.no_additions)
                 self.parser.no_labels += 1
-                self.symbolTable.addEntry(self.parser.label(), self.parser.lineNumber - self.parser.no_labels + self.parser.no_additions)
+                self.symbolTable.addEntry(self.parser.label(), self.parser.lineNumber - self.parser.no_labels + self.parser.no_additions + self.parser.no_leawD)
             if self.parser.commandType() == 'C_COMMAND':
                 if self.parser.currentCommand[0][0] == 'j':
                     self.lastIsJump = True
                 else:
                     self.lastIsJump = False
+            if self.parser.commandType() == "A_COMMAND":
+                if self.parser.currentCommand[2] == "%D":
+                    self.parser.no_leawD += 1
             
         self.lastIsJump = False
             
@@ -83,5 +86,9 @@ class ASM:
                     bin = "00" + self.code.toBinary(self.symbolTable.getAddress(self.parser.symbol()))
                 else:
                     bin = "00" + self.code.toBinary(self.parser.symbol())
+                
+                if self.parser.currentCommand[2] == "%D":
+                    bin += "\n"
+                    bin += '100001100000010000'
                 
                 self.hack.write(bin + "\n")
