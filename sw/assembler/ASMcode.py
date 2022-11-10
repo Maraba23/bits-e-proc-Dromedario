@@ -208,9 +208,3 @@ class Code:
             s = int(value,2)
 
         return f"{s:016b}"
-
-
-if __name__ == '__main__':
-    c = Code()
-    b = '-1'
-    print(c.toBinary(b))

@@ -12,6 +12,8 @@ class ASM:
         self.parser = Parser(nasm)
         self.code = Code()
 
+        self.lastIsJump = False
+
     # DONE
     def run(self):
         try:
@@ -35,6 +37,14 @@ class ASM:
             if self.parser.commandType() == "L_COMMAND":
                 self.parser.no_labels += 1
                 self.symbolTable.addEntry(self.parser.label(), self.parser.lineNumber - self.parser.no_labels)
+            if self.parser.commandType() == 'C_COMMAND':
+                if self.lastIsJump and self.parser.currentCommand[0] != 'nop':
+                    self.parser.lineNumber -= 1
+                    self.parser.currentCommand = ['nop']
+                    self.parser.no_additions += 1
+                    self.lastIsJump = False
+                if self.parser.currentCommand[0][0] == 'j':
+                    self.lastIsJump = True
             
         self.parser.reset()
 
@@ -50,6 +60,12 @@ class ASM:
         
         while self.parser.advanced():
             if self.parser.commandType() == "C_COMMAND":
+                if self.lastIsJump and self.parser.currentCommand[0] != 'nop':
+                    self.parser.lineNumber -= 1
+                    self.parser.currentCommand = ['nop']
+                    self.lastIsJump = False
+                if self.parser.currentCommand[0][0] == 'j':
+                    self.lastIsJump = True
                 if self.parser.currentCommand[0] == "nop":
                     bin = '100001010100000000'
                 else:
