@@ -191,18 +191,26 @@ class Code:
         """
         Converte um valor inteiro para binário 16 bits.
         """
-        s = f"{int(value):016b}"
+        s = ""
 
         if value[0] == '-':
-            s = s[1:]
-            for i in range(len(s)):
-                if s[i] == '0':
-                    s[i] = '1'
+            value = value.replace('-', '')
+            value = f"{int(value):016b}"
+            for i in range(0, 16):
+                if value[i] == '0':
+                    s += '1'
                 else:
-                    s[i] == '0'
-        
+                    s += '0'
+
             s = int(s,2) + 1
         else:
-            s = int(s,2)
+            value = f"{int(value):016b}"
+            s = int(value,2)
 
         return f"{s:016b}"
+
+
+if __name__ == '__main__':
+    c = Code()
+    b = '-1'
+    print(c.toBinary(b))
