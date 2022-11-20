@@ -10,6 +10,8 @@ class Parser:
         # removes from code all empty lines and lines that start with ';'
         self.code = [line for line in self.code if line.strip() != '' and line.strip()[0] != ';']
         self.no_labels = 0
+        self.no_additions = 0
+        self.no_leawD = 0
 
         self.lineNumber = 0  # linha atual do arquivo (nao do codigo gerado)
         self.currentCommand = []  # comando atual
@@ -53,18 +55,13 @@ class Parser:
             linha = linha.split()
             self.lineNumber += 1
 
+
             for i in linha:
                 if ';' in i:
                     break
                 else:
                     self.currentCommand.append(i.replace(",",""))
             
-
-            #if linha[0] in ['jmp', 'je', 'jne', 'jg', 'jge', 'jl', 'jle'] and linhas[self.lineNumber + 1].strip() == 'nop':
-            #    for j in range(len(linhas), self.lineNumber, -1):
-            #        linhas[j] = linhas[j + 1]
-            #   linhas[self.lineNumber + 1] = 'nop'
-                
 
             if self.currentCommand != []:
                 self.currentLine = linha
