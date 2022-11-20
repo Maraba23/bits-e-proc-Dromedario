@@ -125,7 +125,10 @@ class Code:
             return False
         elif segment == "local":
             # dica: usar o argumento index (push local 1)
-            pass # TODO
+            commands.append(f'leaw $LCL, %A')
+            commands.append(f'movw (%A), %D')
+            commands.append(f'leaw ${1+index}, %D')
+            commands.append(f'movw %D, (%A)')
         elif segment == "argument":
             pass # TODO
         elif segment == "this":
