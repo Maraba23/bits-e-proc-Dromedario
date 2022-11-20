@@ -1,4 +1,9 @@
-# Repositório para o Projeto de Bits e Processadores  
+# Repositório para o Projeto de Bits e Processadores
+
+***Atenção: os componentes das rúbricas B e A do PROJETO G estão em uma branch separada pois alteram os testes hack: `B-e-A-projeto-G`***
+* Melhorias e otimizações: 
+  * depois de TODO jump é colocado um nop, independente se foi escrito ou não, tornando o sistema mais eficiente;  
+  * comando novo: `leaw $#, %D` - é possível carregar diretamente em D. O sistema incorpora automaticamente `leaw $#, %A` e `movw %A, %D`.
 
 *Como requerido, os componentes das rúbricas B e A do Projeto C estão em uma branch separada: `componentesB-A`*  
 
