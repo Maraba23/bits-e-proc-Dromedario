@@ -59,7 +59,7 @@ class Code:
         if bootstrap or isDir:
             self.commandsToFile(commands)
 
-    # TODO
+    # DONE
     def writeLabel(self, label):
         commands = []
         commands.append(self.writeHead("label") + " " + label)
@@ -85,7 +85,7 @@ class Code:
         # TODO ...
         self.commandsToFile(commands)
 
-    # TODO
+    # DONE
     def writeArithmetic(self, command):
         self.updateUniqLabel()
         if len(command) < 2:
@@ -201,10 +201,92 @@ class Code:
             commands.append("movw %D, (%A)")
         elif command == "gt":
             # dica, usar self.getUniqLabel() para obter um label único
-            pass # TODO
+            label1 = self.getUniqLabel()
+            self.updateUniqLabel()
+            label2 = self.getUniqLabel()
+
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("movw (%A), %D")
+            commands.append("decw %A")
+            commands.append("subw (%A), %D, %D")
+            commands.append(f"leaw ${label1}, %A")
+            commands.append("jg")
+            commands.append("nop")
+
+            commands.append("leaw $0, %A")
+            commands.append("movw %A, %D")
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("decw %A")
+            commands.append("movw %D, (%A)")
+            commands.append(f"leaw ${label2}, %A")
+            commands.append("jmp")
+            commands.append("nop")
+
+            commands.append(f"{label1}:")
+            commands.append("leaw $0, %A")
+            commands.append("notw %A")
+            commands.append("movw %A, %D")
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("decw %A")
+            commands.append("movw %D, (%A)")
+            
+            commands.append(f"{label2}:")
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("movw %A, %D")
+            commands.append("leaw $SP, %A")
+            commands.append("movw %D, (%A)")
         elif command == "lt":
             # dica, usar self.getUniqLabel() para obter um label único
-            pass # TODO
+            label1 = self.getUniqLabel()
+            self.updateUniqLabel()
+            label2 = self.getUniqLabel()
+
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("movw (%A), %D")
+            commands.append("decw %A")
+            commands.append("subw (%A), %D, %D")
+            commands.append(f"leaw ${label1}, %A")
+            commands.append("jl")
+            commands.append("nop")
+
+            commands.append("leaw $0, %A")
+            commands.append("movw %A, %D")
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("decw %A")
+            commands.append("movw %D, (%A)")
+            commands.append(f"leaw ${label2}, %A")
+            commands.append("jmp")
+            commands.append("nop")
+
+            commands.append(f"{label1}:")
+            commands.append("leaw $0, %A")
+            commands.append("notw %A")
+            commands.append("movw %A, %D")
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("decw %A")
+            commands.append("movw %D, (%A)")
+            
+            commands.append(f"{label2}:")
+            commands.append("leaw $SP, %A")
+            commands.append("movw (%A), %A")
+            commands.append("decw %A")
+            commands.append("movw %A, %D")
+            commands.append("leaw $SP, %A")
+            commands.append("movw %D, (%A)")
 
         self.commandsToFile(commands)
 
