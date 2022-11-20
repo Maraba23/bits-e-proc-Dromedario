@@ -15,6 +15,8 @@ leaw $CASOZERO, %A
 je %D ; conferir se a RAM[0] = 0, se for, fatorial de 0 é 1.
 nop ; irá pular para o caso zero e fazer isso.
 
+leaw $5, %D
+
 leaw $0, %A
 movw (%A), %D
 leaw $R5, %A ; salvando o que está em RAM[0] no contador externo.
@@ -79,3 +81,5 @@ jmp
 nop
 
 ENDD:
+
+leaw $-1, %D

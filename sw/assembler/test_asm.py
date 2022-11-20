@@ -30,10 +30,10 @@ def test_fillsymboltable_address():
     asm = initASM()
     asm.fillSymbolTable()
 
-    assert asm.symbolTable.getAddress('CASOZERO') == 39
-    assert asm.symbolTable.getAddress('WHILE') == 16
-    assert asm.symbolTable.getAddress('END') == 41
-    assert asm.symbolTable.getAddress('ENDD') == 53
+    assert asm.symbolTable.getAddress('CASOZERO') == 41
+    assert asm.symbolTable.getAddress('WHILE') == 18
+    assert asm.symbolTable.getAddress('END') == 43
+    assert asm.symbolTable.getAddress('ENDD') == 55
 
 
 def test_asm_run():

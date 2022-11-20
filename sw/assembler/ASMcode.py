@@ -13,7 +13,7 @@ class Code:
         - return bits: String de 4 bits com código em linguagem de máquina
           que define o endereco da operacao
         """
-        print(mnemnonic, 'dest')
+        
         dests = {
             "%A": "001",
             "%D": "010",
@@ -191,5 +191,21 @@ class Code:
         """
         Converte um valor inteiro para binário 16 bits.
         """
-        return f"{int(value):016b}"
-        
+        s = ""
+        value = str(value)
+
+        if value[0] == '-':
+            value = value.replace('-', '')
+            value = f"{int(value):016b}"
+            for i in range(0, 16):
+                if value[i] == '0':
+                    s += '1'
+                else:
+                    s += '0'
+
+            s = int(s,2) + 1
+        else:
+            value = f"{int(value):016b}"
+            s = int(value,2)
+
+        return f"{s:016b}"
