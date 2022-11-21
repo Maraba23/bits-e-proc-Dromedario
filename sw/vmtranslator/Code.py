@@ -83,11 +83,11 @@ class Code:
         commands = []
         commands.append(self.writeHead("if") + " " + label)
 
-        commands.append(f"leaw $SP, %A")
-        commands.append(f"movw (%A), %D")
-        commands.append(f"notw %D")
+        commands.append(f"leaw $SP, %A") # pegar um antes?
+        commands.append(f"movw (%A), %D") # armazena a booleana em D, false == 000000000
+
         commands.append(f"leaw $END , %A")
-        commands.append(f"je")
+        commands.append(f"je") # id D == 0000000 , ent jmp.
         commands.append(f"nop")
 
         commands.append(f"leaw ${label}, %A")
