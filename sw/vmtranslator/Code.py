@@ -73,14 +73,29 @@ class Code:
         commands = []
         commands.append(self.writeHead("goto") + " " + label)
 
-        # TODO ...
+        commands.append(f"leaw ${label}, %A")
+        commands.append(f"jmp")
+        commands.append(f"nop")
+
         self.commandsToFile(commands)
 
     # TODO
     def writeIf(self, label):
         commands = []
         commands.append(self.writeHead("if") + " " + label)
-        
+
+        commands.append(f"leaw $SP, %A") # pegar um antes, SP tá no vazio em cima do stack.
+        commands.append(f"subw (%A), $1, %D") # armazena a booleana em D, false == 000000000
+
+        commands.append(f"leaw $END , %A")
+        commands.append(f"je") # id D == 0000000 , ent jmp.
+        commands.append(f"nop")
+
+        commands.append(f"leaw ${label}, %A")
+        commands.append(f"jmp")
+        commands.append(f"nop")
+
+        commands.append(f"END:")
 
         # TODO ...
         self.commandsToFile(commands)
