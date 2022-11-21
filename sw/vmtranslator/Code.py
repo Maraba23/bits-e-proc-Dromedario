@@ -86,16 +86,11 @@ class Code:
 
         commands.append(f"leaw $SP, %A") # pegar um antes, SP tá no vazio em cima do stack.
         commands.append(f"subw (%A), $1, %D") # armazena a booleana em D, false == 000000000
-
-        commands.append(f"leaw $END , %A")
-        commands.append(f"je") # id D == 0000000 , ent jmp.
-        commands.append(f"nop")
+        commands.append(f"notw %D") # id D == 0000000 , ent jmp
 
         commands.append(f"leaw ${label}, %A")
-        commands.append(f"jmp")
+        commands.append(f"je")
         commands.append(f"nop")
-
-        commands.append(f"END:")
 
         # TODO ...
         self.commandsToFile(commands)
