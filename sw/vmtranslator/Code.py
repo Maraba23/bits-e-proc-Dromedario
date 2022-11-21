@@ -298,20 +298,56 @@ class Code:
         if segment == "" or segment == "constant":
             return False
         elif segment == "local":
+
             # dica: usar o argumento index (push local 1)
-            commands.append(f'leaw $LCL, %A')
-            commands.append(f'movw (%A), %D')
-            commands.append(f'leaw ${1+index}, %D')
-            commands.append(f'movw %D, (%A)')
+            commands.append("leaw $LCL, %A")        # Le pointer local
+            commands.append("movw (%A), %D")        # move pointer local para D
+            commands.append(f"leaw ${index}, %A")   # le o indice local
+            commands.append("addw %D, %A, %D")      # add indice para pointer local
+            commands.append("leaw $SP, %A")         # le stack pointer
+            commands.append("movw %D, (%A)")        # move endereco local para endereco SP
+            commands.append("decw %A")              # decresce SP
+            commands.append("movw (%A), %D")        # move endereco A para D
+            commands.append("incw %A")              # incrementa SP
+            commands.append("movw (%A), %A")        # move endereco lcl para A
+            commands.append("movw %D, (%A)")        # Move o que estava no SP para A
+            commands.append("decw %A")
+            commands.append("movw %A, %D")
+            commands.append("leaw $SP, %A")
+            commands.append("movw %D, (%A)")
+
         elif segment == "argument":
-            pass # TODO
+
+            commands.append("leaw $ARG, %A")        # Le pointer arg
+            commands.append("movw (%A), %D")        # move pointer arg para D
+            commands.append(f"leaw ${index}, %A")   # le o indice arg
+            commands.append("addw %D, %A, %D")      # add indice para pointer arg
+            commands.append("leaw $SP, %A")         # le stack pointer
+            commands.append("movw %D, (%A)")        # move endereco arg para endereco SP
+            commands.append("decw %A")              # decresce SP
+            commands.append("movw (%A), %D")        # move endereco A para D
+            commands.append("incw %A")              # incrementa SP
+            commands.append("movw (%A), %A")        # move endereco lcl para A
+            commands.append("movw %D, (%A)")        # Move o que esta no SP para A
+
         elif segment == "this":
             pass # TODO
         elif segment == "that":
             pass # TODO
         elif segment == "temp":
-            # dica: usar o argumento index (push temp 0)
-            pass # TODO
+
+            commands.append("leaw $5, %A")        # Le pointer arg
+            commands.append("movw (%A), %D")        # move pointer arg para D
+            commands.append(f"leaw ${index}, %A")   # le o indice arg
+            commands.append("addw %D, %A, %D")      # add indice para pointer arg
+            commands.append("leaw $SP, %A")         # le stack pointer
+            commands.append("movw %D, (%A)")        # move endereco arg para endereco SP
+            commands.append("decw %A")              # decresce SP
+            commands.append("movw (%A), %D")        # move endereco A para D
+            commands.append("incw %A")              # incrementa SP
+            commands.append("movw (%A), %A")        # move endereco lcl para A
+            commands.append("movw %D, (%A)")        # Move o que esta no SP para A
+
         elif segment == "static":
             pass # TODO
         elif segment == "pointer":
