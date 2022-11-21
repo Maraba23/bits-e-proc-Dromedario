@@ -328,9 +328,31 @@ class Code:
             commands.append('movw %D, (%A)')
 
         elif segment == "this":
-            pass # TODO
+            commands.append('leaw $SP, %A')
+            commands.append('subw (%A), $1, %A')
+            commands.append('movw (%A), %D')
+            commands.append('leaw $THIS, %A')
+            commands.append('movw (%A), %A')
+            if index != 0:
+                for _ in range(index):
+                    commands.append('incw %A')
+            commands.append('movw %D, (%A)')
+            commands.append('leaw $SP, %A')
+            commands.append('subw (%A), $1, %D')
+            commands.append('movw %D, (%A)')
         elif segment == "that":
-            pass # TODO
+            commands.append('leaw $SP, %A')
+            commands.append('subw (%A), $1, %A')
+            commands.append('movw (%A), %D')
+            commands.append('leaw $THAT, %A')
+            commands.append('movw (%A), %A')
+            if index != 0:
+                for _ in range(index):
+                    commands.append('incw %A')
+            commands.append('movw %D, (%A)')
+            commands.append('leaw $SP, %A')
+            commands.append('subw (%A), $1, %D')
+            commands.append('movw %D, (%A)')
         elif segment == "temp":
 
             commands.append('leaw $SP, %A')
@@ -360,7 +382,17 @@ class Code:
             commands.append('movw %D, (%A)')
 
         elif segment == "pointer":
-            pass # TODO
+            commands.append('leaw $SP, %A')
+            commands.append('subw (%A), $1, %A')
+            commands.append('movw (%A), %D')
+            if index == 0:
+                commands.append('leaw $THIS, %A')
+            else:
+                commands.append('leaw $THAT, %A')
+            commands.append('movw %D, (%A)')
+            commands.append('leaw $SP, %A')
+            commands.append('subw (%A), $1, %D')
+            commands.append('movw %D, (%A)')
 
         self.commandsToFile(commands)
 
