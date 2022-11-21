@@ -83,8 +83,8 @@ class Code:
         commands = []
         commands.append(self.writeHead("if") + " " + label)
 
-        commands.append(f"leaw $SP, %A") # pegar um antes?
-        commands.append(f"movw (%A), %D") # armazena a booleana em D, false == 000000000
+        commands.append(f"leaw $SP, %A") # pegar um antes, SP tá no vazio em cima do stack.
+        commands.append(f"subw (%A), $1, %D") # armazena a booleana em D, false == 000000000
 
         commands.append(f"leaw $END , %A")
         commands.append(f"je") # id D == 0000000 , ent jmp.
