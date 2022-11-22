@@ -197,4 +197,72 @@ jobs:
       - name: teste asm_hack
         run : |
           pytest sw/assembler/test_asm.py -k test_asm_hack
-      
+
+      # ------ VM TRANSLATOR -------
+      - name: teste arithmetic_add
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_add
+
+      - name: teste arithmetic_sub
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_sub
+
+      - name: teste arithmetic_orr
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_orr
+
+      - name: teste arithmetic_andd
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_andd
+
+      - name: teste arithmetic_nott
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_nott
+
+      - name: teste arithmetic_neg
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_neg
+
+      - name: teste arithmetic_eq_false
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_eq_false
+
+      - name: teste arithmetic_eq_true
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_eq_true
+
+      - name: teste arithmetic_gt_false
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_gt_false
+
+      - name: teste arithmetic_gt_true
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_gt_true
+
+      - name: teste arithmetic_lt_false
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_lt_false
+
+      - name: teste arithmetic_lt_true
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py -k test_lt_true
+
+      - name: teste pop_local
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_local
+
+      - name: teste pop_this
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_this
+
+      - name: teste pop_that
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_that
+
+      - name: teste pop_temp
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_temp
+
+      - name: teste pop_pointer
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_pointer
