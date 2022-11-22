@@ -19,3 +19,73 @@
 ; RAM[7]:  1  | RAM[7]:  1 |
 ; RAM[8]:  4  | RAM[8]:  4 -
 ; ------------------------------------
+
+
+PREPARANDO:
+    leaw $2, %A
+    movw $0, (%A) ; cria contador em RAM[2]
+
+
+SOMA:
+    leaw $2, %A
+    movw (%A), %D
+    leaw $4, %A
+    subw %D, (%A), %D
+    leaw $SEGUE, %A
+    je
+    nop
+
+
+    leaw $2, %A
+    movw (%A), %D
+    leaw $5, %A
+    addw %D, %A, %A
+    movw (%A), %D
+    leaw $1, %A
+    addw (%A), %D, %D
+    movw %D, (%A)
+
+
+    leaw $2, %A
+    addw $1, (%A), %D
+    movw %D, (%A)
+
+
+    leaw $SOMA, %A
+    jmp
+    nop
+
+
+SEGUE:
+    leaw $1, %A
+    movw (%A), %D
+    leaw $3, %A
+    movw %D, (%A) ; cria cópia da soma para poder fazer divisão
+
+
+DIV:
+    leaw $3, %A
+    movw (%A), %D
+    leaw $END, %A
+    jle
+    nop
+
+
+    leaw $4, %A
+    movw (%A), %D
+    leaw $3, %A
+    subw (%A), %D, %D
+    movw %D, (%A)
+
+
+    leaw $0, %A
+    addw (%A), $1, %D
+    movw %D, (%A)
+
+
+    leaw $DIV, %A
+    jmp
+    nop
+
+
+END:

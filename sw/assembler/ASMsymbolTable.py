@@ -29,7 +29,7 @@ class SymbolTable:
             'LOOP': 2,
             'UPDATE': 12,
             'END': 14,
-            'KBD': 24576
+            'KBD': 24576,
         }
 
         for i in range(16):
@@ -62,10 +62,3 @@ class SymbolTable:
         @return valor numérico associado ao símbolo procurado.
         """
         return self.table[symbol]
-
-    def getNextAddress(self):
-        """
-        Retorna o próximo endereço disponível na tabela de símbolos.
-        @return o próximo endereço disponível na tabela de símbolos.
-        """
-        return self.table['x']

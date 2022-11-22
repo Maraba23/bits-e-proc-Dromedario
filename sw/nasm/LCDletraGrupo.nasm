@@ -18,77 +18,90 @@ movw %D, (%A)
 leaw $0, %A
 movw %A, %D
 notw %D
-leaw $19088, %A
+leaw $19093, %A
 movw %D, (%A)
 
 ; Desenhando as linhas verticais
+leaw $15, %A
+movw %A, %D
+leaw $1, %A
+movw %D, (%A)
+
+leaw $18793, %A     ; Endereco LCD
+movw %A, %D
+leaw $0, %A
+movw %D, (%A)
+
+
+WHILE:
+leaw $1, %A
+movw (%A), %D
+leaw $END, %A
+je
+nop
+
 leaw $32769, %A
 movw %A, %D
-leaw $2, %A
+leaw $0, %A
+movw (%A), %A
 movw %D, (%A)
 
-leaw $18794, %A
+leaw $0, %A
+movw (%A), %D
+leaw $20, %A
+addw %D, %A, %D
+leaw $0, %A
+movw %D, (%A)
+
+leaw $1, %A
+movw (%A), %D
+subw %D, $1, %D
+movw %D, (%A)
+
+leaw $WHILE, %A
+jmp
+nop
+
+END:
+
+; Desenhando perna do D
+leaw $16, %A
 movw %A, %D
 leaw $1, %A
 movw %D, (%A)
 
-WHILE:
-    leaw $1, %A
-    movw (%A), %D
-    leaw $19088, %A
-    subw %A, %D, %D
-    leaw $ENDI, %A
-    je
-    nop
+leaw $18453, %A     ; Endereco LCD
+movw %A, %D
+leaw $0, %A
+movw %D, (%A)
 
-    leaw $2, %A
-    movw (%A), %D
+WHILEI:
+leaw $1, %A
+movw (%A), %D
+leaw $ENDI, %A
+je
+nop
 
-    leaw $1, %A
-    movw %D, (%A)
+leaw $1, %A
+movw %A, %D
+leaw $0, %A
+movw (%A), %A
+movw %D, (%A)
 
-    movw (%A), %D
-    addw %D, $21, %D
-    movw %D, (%A)
+leaw $0, %A
+movw (%A), %D
+leaw $20, %A
+addw %D, %A, %D
+leaw $0, %A
+movw %D, (%A)
 
-    leaw $WHILE, %A
-    jmp
-    nop
+leaw $1, %A
+movw (%A), %D
+subw %D, $1, %D
+movw %D, (%A)
+
+leaw $WHILEI, %A
+jmp
+nop
 
 ENDI:
-
-; Desenhando linha vertical superior
-leaw $1, %A
-movw %A, %D
-leaw $2, %A
-movw %D, (%A)
-
-leaw $18416, %A
-movw %A, %D
-leaw $1, %A
-movw %D, (%A)
-
-WHILE:
-    leaw $1, %A
-    movw (%A), %D
-    leaw $18773, %A
-    subw %A, %D, %D
-    leaw $ENDII, %A
-    je
-    nop
-
-    leaw $2, %A
-    movw (%A), %D
-
-    leaw $1, %A
-    movw %D, (%A)
-
-    movw (%A), %D
-    addw %D, $21, %D
-    movw %D, (%A)
-
-    leaw $WHILE, %A
-    jmp
-    nop
-
-ENDII:

@@ -6,6 +6,13 @@ class Parser:
     def __init__(self, inputFile):
         self.file = inputFile  # self.openFile()  # arquivo de leitura
         self.code = self.file.readlines() # copia legivel do files
+
+        # removes from code all empty lines and lines that start with ';'
+        self.code = [line for line in self.code if line.strip() != '' and line.strip()[0] != ';']
+        self.no_labels = 0
+        self.no_additions = 0
+        self.no_leawD = 0
+
         self.lineNumber = 0  # linha atual do arquivo (nao do codigo gerado)
         self.currentCommand = []  # comando atual
         self.currentLine = ""  # linha de codigo atual
@@ -20,6 +27,9 @@ class Parser:
 
     # DONE
     def reset(self):
+        self.lineNumber = 0
+        self.currentCommand = []
+        self.currentLine = ""
         self.file.seek(0)
 
     # DONE
@@ -45,13 +55,16 @@ class Parser:
             linha = linha.split()
             self.lineNumber += 1
 
+
             for i in linha:
-                if i == ';':
+                if ';' in i:
                     break
                 else:
                     self.currentCommand.append(i.replace(",",""))
+            
 
             if self.currentCommand != []:
+                self.currentLine = linha
                 return True
 
         return False
