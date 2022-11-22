@@ -68,7 +68,7 @@ class Code:
 
         self.commandsToFile(commands)
 
-    # TODO
+    # DONE
     def writeGoto(self, label):
         commands = []
         commands.append(self.writeHead("goto") + " " + label)
@@ -79,25 +79,22 @@ class Code:
 
         self.commandsToFile(commands)
 
-    # TODO
+    # DONE
     def writeIf(self, label):
         commands = []
         commands.append(self.writeHead("if") + " " + label)
 
         commands.append(f"leaw $SP, %A") # pegar um antes, SP tá no vazio em cima do stack.
         commands.append(f"subw (%A), $1, %D") # armazena a booleana em D, false == 000000000
-
-        commands.append(f"leaw $END , %A")
-        commands.append(f"je") # id D == 0000000 , ent jmp.
-        commands.append(f"nop")
+        commands.append('movw %D, (%A)')
+        commands.append('movw %D, %A')
+        commands.append('movw (%A), %D')
+        commands.append(f"notw %D") # id D == 0000000 , ent jmp
 
         commands.append(f"leaw ${label}, %A")
-        commands.append(f"jmp")
+        commands.append(f"je")
         commands.append(f"nop")
-
-        commands.append(f"END:")
-
-        # TODO ...
+        
         self.commandsToFile(commands)
 
     # DONE
@@ -197,7 +194,7 @@ class Code:
             commands.append("jmp")
             commands.append("nop")
 
-            commands.append(f"{label1}:")
+            commands.append(f"{label1}:") # SÃO IGUAIS
             commands.append("leaw $0, %A")
             commands.append("notw %A")
             commands.append("movw %A, %D")
@@ -305,6 +302,7 @@ class Code:
 
         self.commandsToFile(commands)
 
+    # DONE
     def writePop(self, command, segment, index):
         self.updateUniqLabel()
         commands = []
@@ -411,6 +409,7 @@ class Code:
 
         self.commandsToFile(commands)
 
+    # DONE
     def writePush(self, command, segment, index):
         commands = []
         commands.append(self.writeHead(command + " " + segment + " " + str(index)))
