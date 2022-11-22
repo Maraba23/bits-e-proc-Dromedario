@@ -543,8 +543,12 @@ class Code:
         commands = []
         commands.append(self.writeHead("call") + " " + funcName + " " + str(numArgs))
 
-        # TODO
-        # ...
+        commands.append('leaw $SP, %A')
+        commands.append('movw (%A), %D')
+        commands.append(f'leaw ${numArgs}, %A')
+        commands.append('subw %D, %A, %D')
+        commands.append('leaw $ARG, %A')
+        commands.append('movw %D, (%A)')
 
         self.commandsToFile(commands)
 
@@ -553,8 +557,16 @@ class Code:
         commands = []
         commands.append(self.writeHead("return"))
 
-        # TODO
-        # ...
+        commands.append('leaw $SP, %A')
+        commands.append('subw (%A), $1, %A')
+        commands.append('movw (%A), %D')
+        commands.append('leaw $ARG, %A')
+        commands.append('movw (%A), %A')
+        commands.append('movw %D, (%A)')
+        commands.append('movw %A, %D')
+        commands.append('incw %D')
+        commands.append('leaw $SP, %A')
+        commands.append('movw %D, (%A)')
 
         self.commandsToFile(commands)
 
@@ -563,7 +575,13 @@ class Code:
         commands = []
         commands.append(self.writeHead("func") + " " + funcName + " " + str(numLocals))
 
-        # TODO
-        # ...
+        commands.append('leaw $SP, %A')
+        commands.append('movw (%A), %D')
+        commands.append('leaw $LCL, %A')
+        commands.append('movw %D, (%A)')
+        commands.append(f'leaw ${numLocals}, %A')
+        commands.append('addw %D, %A, %D')
+        commands.append('leaw $SP, %A')
+        commands.append('movw %D, (%A)')
 
         self.commandsToFile(commands)
