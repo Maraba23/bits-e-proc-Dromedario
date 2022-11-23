@@ -302,7 +302,3 @@ jobs:
       - name: teste goto_true
         run: |
           pytest sw/vmtranslator/test_code_goto.py -k test_goto_true
-      
-      - name: teste function
-        run: |
-          pytest sw/vmtranslator/test_code_function.py -k test_function
