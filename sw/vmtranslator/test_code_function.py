@@ -30,4 +30,4 @@ def test_function():
     x = 4; y = 5
     ram = {0: 256, TEMP[0]: x, TEMP[1]: y}
     tst = {TEMP[0]: x+y}
-    assert vm_test(abs_path("test_assets/func"), ram, tst, 5000000)
+    assert vm_test(abs_path("test_assets/func"), ram, tst)
