@@ -266,3 +266,39 @@ jobs:
       - name: teste pop_pointer
         run: |
           pytest sw/vmtranslator/test_code_pop.py -k test_pop_pointer
+      
+      - name: teste push_constant
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_constant
+      
+      - name: teste push_local
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_local
+      
+      - name: teste push_argument
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_argument
+      
+      - name: teste push_this
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_this
+      
+      - name: teste push_that
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_that
+      
+      - name: teste push_temp
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_temp
+      
+      - name: teste push_pointer
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_pointer
+      
+      - name: teste goto_false
+        run: |
+          pytest sw/vmtranslator/test_code_goto.py -k test_goto_false
+      
+      - name: teste goto_true
+        run: |
+          pytest sw/vmtranslator/test_code_goto.py -k test_goto_true

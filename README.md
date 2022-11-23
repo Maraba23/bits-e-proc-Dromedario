@@ -14,6 +14,9 @@
 - Pedro Antônio Silva
 - Thomas Chiari Ciocchetti de Souza
 
+## **Observação sobre o Projeto H**:  
+Como instruído pelo professor em sala de aula, foi retirado o `test_function` da components.yml, já que ele não passava de nenhuma maneira. No entanto, ainda é possível testar na máquina local.
+
 ## Link para o vídeo do Projeto B:
 - <a href="https://www.youtube.com/shorts/Z4_pWcjIxNA">Acesse via YouTube</a>  
   
